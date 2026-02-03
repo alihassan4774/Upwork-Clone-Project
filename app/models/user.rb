@@ -2,11 +2,10 @@ class User < ApplicationRecord
   ############################################################################################
   ## PeterGate Roles                                                                        ##
   ## The :user role is added by default and shouldn't be included in this list.             ##
-  ## The :root_admin can access any page regardless of access settings. Use with caution!   ##
-  ## The multiple option can be set to true if you need users to have multiple roles.       ##
-  petergate(roles: [ :client, :freelancer, :admin ], multiple: false)                                   ##
+  # ## The :root_admin can access any page regardless of access settings. Use with caution!   ##
+  # ## The multiple option can be set to true if you need users to have multiple roles.       ##
+  # petergate(roles: [:admin, :editor], multiple: false)                                      ##
   ############################################################################################
-
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -16,10 +15,4 @@ class User < ApplicationRecord
 
   has_one :client_profile, dependent: :destroy
   has_one :freelancer_profile, dependent: :destroy
-
-
-
-
-
-
 end

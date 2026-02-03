@@ -9,74 +9,88 @@
       Join as a client or freelancer
     </h2>
 
-    <div class="flex gap-6 mt-10">
+    <!-- 🔥 FORM START -->
+    <form action="/register" method="get">
 
-      <!-- CLIENT -->
-      <label class="cursor-pointer">
-        <input type="radio" name="role" class="peer hidden role-radio" />
+      <div class="flex gap-6 mt-10">
 
-        <div
-          class="w-72 p-6 border-2 border-gray-300 rounded-lg flex justify-between items-start
-                 hover:border-gray-400
-                 peer-checked:border-green-600 peer-checked:ring-2 peer-checked:ring-green-600">
-
-          <div>
-            <div class="text-xl">👤</div>
-            <p class="mt-4 text-lg font-medium text-gray-900">
-              I'm a client, hiring for a project
-            </p>
-          </div>
+        <!-- CLIENT -->
+        <label class="cursor-pointer">
+          <input
+            type="radio"
+            name="user[role]"
+            value="client"
+            class="peer hidden role-radio"
+          />
 
           <div
-            class="w-5 h-5 border-2 border-gray-400 rounded-full
-                   peer-checked:border-green-600
-                   peer-checked:bg-green-600">
+            class="w-72 p-6 border-2 border-gray-300 rounded-lg flex justify-between items-start
+                   hover:border-gray-400
+                   peer-checked:border-green-600 peer-checked:ring-2 peer-checked:ring-green-600">
+
+            <div>
+              <div class="text-xl">👤</div>
+              <p class="mt-4 text-lg font-medium text-gray-900">
+                I'm a client, hiring for a project
+              </p>
+            </div>
+
+            <div
+              class="w-5 h-5 border-2 border-gray-400 rounded-full
+                     peer-checked:border-green-600
+                     peer-checked:bg-green-600">
+            </div>
           </div>
-        </div>
-      </label>
+        </label>
 
-      <!-- FREELANCER -->
-      <label class="cursor-pointer">
-        <input type="radio" name="role" class="peer hidden role-radio" />
-
-        <div
-          class="w-72 p-6 border-2 border-gray-300 rounded-lg flex justify-between items-start
-                 hover:border-gray-400
-                 peer-checked:border-green-600 peer-checked:ring-2 peer-checked:ring-green-600">
-
-          <div>
-            <div class="text-xl">🧑‍💻</div>
-            <p class="mt-4 text-lg font-medium text-gray-900">
-              I'm a freelancer, looking for work
-            </p>
-          </div>
+        <!-- FREELANCER -->
+        <label class="cursor-pointer">
+          <input
+            type="radio"
+            name="user[role]"
+            value="freelancer"
+            class="peer hidden role-radio"
+          />
 
           <div
-            class="w-5 h-5 border-2 border-gray-400 rounded-full
-                   peer-checked:border-green-600
-                   peer-checked:bg-green-600">
+            class="w-72 p-6 border-2 border-gray-300 rounded-lg flex justify-between items-start
+                   hover:border-gray-400
+                   peer-checked:border-green-600 peer-checked:ring-2 peer-checked:ring-green-600">
+
+            <div>
+              <div class="text-xl">🧑‍💻</div>
+              <p class="mt-4 text-lg font-medium text-gray-900">
+                I'm a freelancer, looking for work
+              </p>
+            </div>
+
+            <div
+              class="w-5 h-5 border-2 border-gray-400 rounded-full
+                     peer-checked:border-green-600
+                     peer-checked:bg-green-600">
+            </div>
           </div>
-        </div>
-      </label>
+        </label>
 
-    </div>
+      </div>
 
-    <!-- BUTTON -->
-    <a href="/register">
-    <button
-      id="createAccountBtn"
-      class="mt-10 px-10 py-3 bg-gray-200 text-gray-400 rounded-full cursor-not-allowed transition">
-      Create Account
-    </button>
-    </a>
+      <!-- BUTTON -->
+      <button
+        id="createAccountBtn"
+        disabled
+        class="mt-10 px-10 py-3 bg-gray-200 text-gray-400 rounded-full cursor-not-allowed transition">
+        Create Account
+      </button>
+
+    </form>
+    <!-- 🔥 FORM END -->
 
     <p class="mt-6 text-gray-600">
       Already have an account?
-      <a href="#" class="text-green-600 hover:underline">Log In</a>
+      <a href="/users/sign_in" class="text-green-600 hover:underline">Log In</a>
     </p>
   </div>
 </div>
-
 
 <script>
   const radios = document.querySelectorAll('.role-radio');
@@ -84,6 +98,8 @@
 
   radios.forEach(radio => {
     radio.addEventListener('change', () => {
+      button.disabled = false;
+
       button.classList.remove(
         'bg-gray-200',
         'text-gray-400',

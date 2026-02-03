@@ -1,8 +1,12 @@
-# app/controllers/users/registrations_controller.rb
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [ :create ]
 
   protected
+
+  def build_resource(hash = {})
+    super
+    resource.role ||= params.dig(:user, :role)
+  end
 
   def after_sign_up_path_for(resource)
     if resource.client?

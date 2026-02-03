@@ -55,7 +55,7 @@ end
 
  gem "devise", "~> 5.0"
 
- gem "petergate", "~> 3.0", ">= 3.0.1"
+ gem "pundit", "~> 2.5", ">= 2.5.2"
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]

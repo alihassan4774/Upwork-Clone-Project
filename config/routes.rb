@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "client_profiles/show"
   get "client_profiles/edit"
   get "client_profiles/update"
+
+
   # Devise routes with custom controllers
   devise_for :users, path: "", path_names: {
     sign_in: "login",
@@ -20,10 +22,10 @@ Rails.application.routes.draw do
   }
 
   # Static pages
-  get "pages/landing"
   get "pages/client"
   get "pages/freelancer"
   get "/select-role", to: "pages#select_role"
+
 
   # Profile routes
   resources :client_profiles, only: [ :new, :create, :show, :edit, :update ]

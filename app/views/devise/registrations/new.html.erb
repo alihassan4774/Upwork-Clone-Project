@@ -4,6 +4,11 @@
   
   <%= render "devise/shared/error_messages", resource: resource %>
 
+
+<!-- Role hidden field (select-role page se aaya hoga) -->
+  <%= f.hidden_field :role, value: params[:user][:role] %>
+
+
   <!-- Email Field -->
   <div class="field">
     <%= f.label :email, class: "block text-gray-700 font-medium" %>

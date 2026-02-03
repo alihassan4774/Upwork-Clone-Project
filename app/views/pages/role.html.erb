@@ -1,0 +1,25 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="bg-white p-8 rounded-lg shadow w-full max-w-md">
+
+    <h2 class="text-2xl font-semibold text-center mb-6">
+      Select your role
+    </h2>
+
+    <%= form_with url: role_path, method: :patch do |f| %>
+
+      <div class="mb-6">
+        <%= f.label :role, "Choose role", class: "block mb-2 text-gray-700" %>
+
+        <%= f.select :role,
+          [["Client", "client"], ["Freelancer", "freelancer"]],
+          {},
+          class: "w-full border rounded px-3 py-2" %>
+      </div>
+
+      <%= f.submit "Continue",
+        class: "w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" %>
+
+    <% end %>
+
+  </div>
+</div>
