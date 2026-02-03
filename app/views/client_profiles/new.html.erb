@@ -1,0 +1,53 @@
+<div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+  <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8">
+
+    <!-- Heading -->
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-bold text-gray-900">
+        Create Your Client Profile
+      </h1>
+      <p class="text-gray-500 mt-2">
+        Tell freelancers a bit about your company
+      </p>
+    </div>
+
+    <%= form_with model: @client_profile,
+                  url: client_profiles_path,
+                  class: "space-y-6" do |f| %>
+
+      <!-- Company Name -->
+      <div>
+        <%= f.label :company_name,
+          class: "block text-sm font-medium text-gray-700" %>
+
+        <%= f.text_field :company_name,
+          placeholder: "e.g. Acme Corporation",
+          class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-2
+                 focus:ring-2 focus:ring-green-600 focus:border-green-600
+                 transition" %>
+      </div>
+
+      <!-- Bio -->
+      <div>
+        <%= f.label :bio,
+          class: "block text-sm font-medium text-gray-700" %>
+
+        <%= f.text_area :bio,
+          rows: 5,
+          placeholder: "Describe your company, goals, and the type of work you need…",
+          class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-2
+                 focus:ring-2 focus:ring-green-600 focus:border-green-600
+                 transition resize-none" %>
+      </div>
+
+      <!-- Submit -->
+      <div class="pt-4">
+        <%= f.submit "Create Profile",
+          class: "w-full bg-green-600 text-white py-3 rounded-full
+                 font-semibold hover:bg-green-700
+                 transition shadow-md" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
