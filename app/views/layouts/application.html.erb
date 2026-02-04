@@ -39,9 +39,12 @@
        <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
 
+       <%= render 'shared/navbar' %>
+
    <main class="w-full">
      
-    <%= yield %>
+       <%= yield %>
   </main>
+       <%= render 'shared/footer' %>
   </body>
 </html>

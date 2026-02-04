@@ -13,6 +13,16 @@ class User < ApplicationRecord
   # Yahan change kiya: 'role:' ki jagah ':role,' kar diya
   enum :role, { client: 0, freelancer: 1 }
 
+  # User create hone par profile bhi automatically create ho
+  after_create :create_default_profile
+
+  private
+
+  def create_default_profile
+    create_profile
+  end
+
   has_one :client_profile, dependent: :destroy
   has_one :freelancer_profile, dependent: :destroy
+  has_one :profile, dependent: :destroy
 end

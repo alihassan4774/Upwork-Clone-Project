@@ -1,0 +1,22 @@
+<h2 class="text-lg font-semibold mb-4">Edit company details</h2>
+
+<%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+  <div class="mb-4">
+    <%= f.label :company_name, "Company Name", class: "block text-sm text-gray-600 mb-1" %>
+    <%= f.text_field :company_name, class: "w-full border rounded px-3 py-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :size, "Company Size", class: "block text-sm text-gray-600 mb-1" %>
+    <%= f.text_field :size, class: "w-full border rounded px-3 py-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :bio, "Description", class: "block text-sm text-gray-600 mb-1" %>
+    <%= f.text_area :bio, rows: 3, class: "w-full border rounded px-3 py-2" %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= f.submit "Save Changes", class: "bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" %>
+  </div>
+<% end %>

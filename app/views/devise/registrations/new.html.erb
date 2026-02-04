@@ -6,7 +6,7 @@
 
 
 <!-- Role hidden field (select-role page se aaya hoga) -->
-  <%= f.hidden_field :role, value: params[:user][:role] %>
+ <%= f.hidden_field :role, value: params.dig(:user, :role) %>
 
 
   <!-- Email Field -->

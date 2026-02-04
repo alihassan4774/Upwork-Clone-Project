@@ -10,7 +10,7 @@ class FreelancerProfilesController < ApplicationController
     @freelancer_profile = current_user.build_freelancer_profile(freelancer_profile_params)
 
     if @freelancer_profile.save
-      redirect_to freelancer_profile_path(@freelancer_profile), notice: "Profile created successfully!"
+      redirect_to user_freelancer_path(@freelancer_profile), notice: "Profile created successfully!"
     else
       render :new
     end
@@ -26,6 +26,6 @@ class FreelancerProfilesController < ApplicationController
   private
 
   def freelancer_profile_params
-    params.require(:freelancer_profile).permit(:skills, :hourly_rate, :portfolio_url)
+    params.require(:freelancer_profile).permit(:skills, :fixed_price, :portfolio_url)
   end
 end

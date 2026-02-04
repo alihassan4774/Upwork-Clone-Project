@@ -10,7 +10,7 @@
         Tell freelancers a bit about your company
       </p>
     </div>
-
+    <%= current_user.role %>
     <%= form_with model: @client_profile,
                   url: client_profiles_path,
                   class: "space-y-6" do |f| %>

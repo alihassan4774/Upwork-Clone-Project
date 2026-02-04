@@ -1,11 +1,13 @@
 module ApplicationHelper
-  def login_helper
-   if current_user
-       button_to "Logout", destroy_user_session_path, method: :delete
-   else
-      (link_to "Sign up", new_user_registration_path) +
-      " " +
-      (link_to "Login", new_user_session_path)
-   end
+ def logo_redirect_path
+  return root_path unless user_signed_in?
+
+  if current_user.client?
+    user_client_path
+  elsif current_user.freelancer?
+    user_freelancer_path
+  else
+    role_path
   end
+end
 end

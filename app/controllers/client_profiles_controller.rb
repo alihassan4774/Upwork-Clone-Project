@@ -6,15 +6,17 @@ class ClientProfilesController < ApplicationController
     @client_profile = current_user.build_client_profile
   end
 
-  def create
-    @client_profile = current_user.build_client_profile(client_profile_params)
+ def create
+  @client_profile = current_user.build_client_profile(client_profile_params)
 
-    if @client_profile.save
-      redirect_to client_profile_path(@client_profile), notice: "Profile created successfully!"
-    else
-      render :new
-    end
+  if @client_profile.save
+    redirect_to user_client_path, notice: "Profile created successfully!"
+  else
+    render :new
   end
+end
+
+
 
   def show
     @client_profile = ClientProfile.find(params[:id])
