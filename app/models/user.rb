@@ -14,13 +14,15 @@ class User < ApplicationRecord
   enum :role, { client: 0, freelancer: 1 }
 
   # User create hone par profile bhi automatically create ho
-  after_create :create_default_profile
+  after_create :create_profile
 
   private
 
-  def create_default_profile
-    create_profile
-  end
+   def create_profile
+      build_profile(
+       email: email
+      ).save
+   end
 
   has_one :client_profile, dependent: :destroy
   has_one :freelancer_profile, dependent: :destroy

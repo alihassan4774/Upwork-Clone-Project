@@ -1,87 +1,43 @@
-<div class="bg-white rounded-lg shadow p-6 mb-4">
-  <!-- Header -->
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-lg font-semibold">Company contacts</h2>
-    
-    <% if @editing_section == 'company_contacts' %>
-      <%= link_to "❌", profile_path, class: "text-gray-600 hover:text-gray-800" %>
-    <% else %>
-      <%= link_to "✏️", profile_path(edit_section: 'company_contacts'), class: "text-green-600 hover:text-green-700" %>
-    <% end %>
-  </div>
+<div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+
   
-  <!-- Check: Sirf yeh card edit ho raha hai? -->
-  <% if @editing_section == 'company_contacts' %>
-    
-    <!-- EDIT MODE -->
-    <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
-      <%= hidden_field_tag :edit_section, 'company_contacts' %>
-      
-      <div class="mb-3">
-        <%= f.label :phone, "Phone", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :phone, class: "w-full border border-gray-300 rounded-md px-3 py-2" %>
-      </div>
-      
-      <div class="mb-3">
-        <%= f.label :vat_id, "VAT ID", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :vat_id, class: "w-full border border-gray-300 rounded-md px-3 py-2" %>
-        <p class="text-xs text-gray-500 mt-1">To enable VAT invoicing</p>
-      </div>
-      
-      <div class="mb-3">
-        <%= f.label :timezone, "Time Zone", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.select :timezone, 
-                     time_zone_options_for_select(@profile.timezone, nil, ActiveSupport::TimeZone),
-                     { include_blank: "Select timezone" },
-                     class: "w-full border border-gray-300 rounded-md px-3 py-2" %>
-      </div>
-      
-      <div class="mb-3">
-        <%= f.label :address, "Address", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :address, class: "w-full border border-gray-300 rounded-md px-3 py-2" %>
-      </div>
-      
-      <div class="flex justify-end gap-2">
-        <%= f.submit "💾 Save", class: "bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700" %>
-        <%= link_to "Cancel", profile_path, class: "bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300" %>
-      </div>
-    <% end %>
-    
-  <% else %>
-    
-    <!-- VIEW MODE -->
-    <div class="space-y-3">
-      <div class="flex justify-between">
-        <span class="text-sm text-gray-600">Owner</span>
-        <span class="text-sm font-medium text-gray-900"><%= current_user.email %></span>
-      </div>
-      
-      <div class="flex justify-between">
-        <span class="text-sm text-gray-600">Phone</span>
-        <span class="text-sm text-gray-900"><%= @profile.phone.presence || 'Not set' %></span>
-      </div>
-      
-      <div class="flex justify-between">
-        <span class="text-sm text-gray-600">VAT ID</span>
-        <span class="text-sm text-gray-900">
-          <%= @profile.vat_id.presence || 'Not set' %>
-          <% if @profile.vat_id.blank? %>
-            <%= link_to "Enter your VAT ID", profile_path(edit_section: 'company_contacts'), 
-                        class: "text-green-600 text-xs hover:underline ml-1" %>
-          <% end %>
-        </span>
-      </div>
-      
-      <div class="flex justify-between">
-        <span class="text-sm text-gray-600">Time Zone</span>
-        <span class="text-sm text-gray-900"><%= @profile.timezone.presence || 'Not set' %></span>
-      </div>
-      
-      <div class="flex justify-between">
-        <span class="text-sm text-gray-600">Address</span>
-        <span class="text-sm text-gray-900"><%= @profile.address.presence || 'Not set' %></span>
-      </div>
+  <button class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+    ✎
+  </button>
+
+  <h2 class="text-lg font-semibold text-gray-900 mb-6">Company contacts</h2>
+
+  <div class="space-y-4 text-sm">
+
+    <div>
+      <p class="text-gray-500">Owner</p>
+      <p class="text-gray-900 font-medium">A***ssan</p>
     </div>
-    
-  <% end %>
+
+    <div>
+      <p class="text-gray-500">Phone</p>
+      <p class="text-gray-900">—</p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">VAT ID</p>
+      <a href="#" class="text-green-600 font-medium hover:underline">
+        Enter your VAT ID
+      </a>
+      <p class="text-xs text-gray-500 mt-1">
+        to enable VAT invoicing
+      </p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">Time Zone</p>
+      <p class="text-gray-900">UTC+05:00 Islamabad, Karachi</p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">Address</p>
+      <p class="text-gray-900">Pakistan</p>
+    </div>
+
+  </div>
 </div>

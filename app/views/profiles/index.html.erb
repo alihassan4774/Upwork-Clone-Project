@@ -1,0 +1,98 @@
+ <div class="flex items-center gap-4">
+      <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold">
+        <%= current_user.email.first.upcase %>
+      </div>
+      <div>
+        <p class="font-semibold"><%= current_user.name || current_user.email.split('@').first %></p>
+        <p class="text-sm text-gray-600"><%= current_user.email %></p>
+      </div>
+    </div>
+
+
+
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold text-gray-600">
+        <%= @profile.company_name&.first&.upcase || '?' %>
+      </div>
+      
+      <div>
+        <p class="font-semibold text-gray-900"><%= @profile.company_name.presence || 'Not set' %></p>
+        <p class="text-sm text-gray-600"><%= @profile.size.presence || 'Not set' %></p>
+        <% if @profile.bio.present? %>
+          <p class="text-sm text-gray-500 mt-1"><%= @profile.bio %></p>
+        <% end %>
+      </div>
+    </div>
+
+
+
+    <div class="space-y-3">
+      <div class="flex justify-between">
+        <span class="text-sm text-gray-600">Owner</span>
+        <span class="text-sm font-medium text-gray-900"><%= current_user.email %></span>
+      </div>
+      
+      <div class="flex justify-between">
+        <span class="text-sm text-gray-600">Phone</span>
+        <span class="text-sm text-gray-900"><%= @profile.phone.presence || 'Not set' %></span>
+      </div>
+      
+      <div class="flex justify-between">
+        <span class="text-sm text-gray-600">VAT ID</span>
+        <span class="text-sm text-gray-900">
+          <%= @profile.vat_id.presence || 'Not set' %>
+          <% if @profile.vat_id.blank? %>
+            <%= link_to "Enter your VAT ID", profile_path(edit_section: 'company_contacts'), 
+                        class: "text-green-600 text-xs hover:underline ml-1" %>
+          <% end %>
+        </span>
+      </div>
+      
+      <div class="flex justify-between">
+        <span class="text-sm text-gray-600">Time Zone</span>
+        <span class="text-sm text-gray-900"><%= @profile.timezone.presence || 'Not set' %></span>
+      </div>
+      
+      <div class="flex justify-between">
+        <span class="text-sm text-gray-600">Address</span>
+        <span class="text-sm text-gray-900"><%= @profile.address.presence || 'Not set' %></span>
+      </div>
+    </div>
+
+
+    <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+
+  <p class="text-gray-900 font-medium mb-4">
+    This is a client account
+  </p>
+
+  <div class="flex items-center gap-6">
+
+    <button class="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-green-700 transition">
+      Create New Account
+    </button>
+
+    <a href="#" class="text-green-600 text-sm font-medium hover:underline">
+      Close account
+    </a>
+
+  </div>
+</div>
+
+
+<div class="bg-white border border-gray-200 rounded-xl p-6">
+
+  <h2 class="text-lg font-semibold text-gray-900 mb-2">
+    AI preference
+  </h2>
+
+  <p class="text-sm text-gray-600 mb-4">
+    Choose how your Upwork data is used for AI training and improvement.
+    <a href="#" class="text-green-600 hover:underline">Learn more</a>
+  </p>
+
+  <button class="border-2 border-green-600 text-green-600 px-6 py-2 rounded-full text-sm font-medium hover:bg-green-50 transition">
+    Set preference
+  </button>
+
+</div>

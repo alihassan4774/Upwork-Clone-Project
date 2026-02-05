@@ -1,29 +1,42 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :set_profile, only: [ :show, :edit, :update ]
+
   def show
-    @profile = current_user.profile || current_user.create_profile
-    @editing_section = params[:edit_section]  # Ye check karega kis card ko edit karna hai
   end
-  
+
+  def edit
+  end
+
   def update
-    @profile = current_user.profile
-    
+    # Agar profile nahi hai to pehle create karo
+    @profile ||= current_user.build_profile
+
     if @profile.update(profile_params)
-      redirect_to profile_path, notice: '✅ Changes saved successfully!'
+      redirect_to profile_path, notice: "Profile updated successfully!"
     else
-      # Agar error ho to wapis wohi section edit mode mein dikha do
-      @editing_section = params[:edit_section]
       render :show, status: :unprocessable_entity
     end
   end
-  
+
   private
-  
+
+  def set_profile
+    @profile = current_user.profile || current_user.build_profile
+  end
+
   def profile_params
     params.require(:profile).permit(
-      :company_name, :size, :bio, 
-      :phone, :vat_id, :timezone, :address
+      :first_name,
+      :last_name,
+      :email,
+      :company_name,
+      :size,
+      :phone,
+      :vat_id,
+      :timezone,
+      :address,
+      :bio
     )
   end
 end

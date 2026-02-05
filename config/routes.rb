@@ -28,12 +28,13 @@ Rails.application.routes.draw do
   get "/select-role", to: "pages#select_role", as: "select_role"
   get "welcome", to: "pages#welcome", as: "welcome_page"
   get "/profile", to: "profiles#show", as: :profile
+  get "/profile/index"
 
 
   # Profile routes
   resources :client_profiles, only: [ :new, :create, :show, :edit, :update ]
   resources :freelancer_profiles, only: [ :new, :create, :show, :edit, :update ]
-  resource :profile, only: [ :show, :update ]
+  resource :profile, only: [ :show, :edit, :update ]
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
