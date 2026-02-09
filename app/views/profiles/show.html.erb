@@ -1,3 +1,6 @@
+
+
+
 <div class="max-w-4xl mx-auto p-6">
   <h1 class="text-2xl font-bold mb-6">My Info</h1>
   
@@ -33,7 +36,7 @@
     <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
 
     <!-- Edit Button -->
-    <button onclick="editAccount()" class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+    <button onclick="openEditAccount()" class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
       ✎
     </button>
 
@@ -42,9 +45,16 @@
     <div class="flex items-start gap-6">
 
       <!-- Avatar -->
-      <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-        👤
+      <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+     <% if @profile.image.present? %>
+     <%= image_tag @profile.image.url, width: "100%" %>
+     <% else %>
+       <span class="text-gray-400">No image</span>
+     <% end %>
       </div>
+ 
+  
+
 
       <!-- Info -->
       <div id="account-view">
@@ -92,7 +102,7 @@
 
           <div class="flex gap-3">
             <button type="button"
-              onclick="cancelAccountEdit()"
+              onclick="openCancelAccountEdit()"
               class="px-4 py-2 border rounded-lg">
               Cancel
             </button>
@@ -110,16 +120,20 @@
 
 
 <script>
-function editAccount() {
-  document.getElementById("account-view").classList.add("hidden");
-  document.getElementById("account-edit").classList.remove("hidden");
-}
+// # function editAccount() {
+// #   document.getElementById("account-view").classList.add("hidden");
+// #   document.getElementById("account-edit").classList.remove("hidden");
+// # }
 
-function cancelAccountEdit() {
-  document.getElementById("account-edit").classList.add("hidden");
-  document.getElementById("account-view").classList.remove("hidden");
-}
-</script>
+// # function cancelAccountEdit() {
+// #   document.getElementById("account-edit").classList.add("hidden");
+// #   document.getElementById("account-view").classList.remove("hidden");
+// # }
+
+
+import {openEditAccount} from "javascript/account_model"
+import {openCancelAccountEdit} from "javascript/account_model"
+</script> 
 
 
 
@@ -153,6 +167,10 @@ function cancelAccountEdit() {
           <p class="text-sm text-gray-500">Size</p>
           <p class="text-sm text-gray-900"><%= @profile.size.presence || "Not set" %></p>
         </div>
+        <div>
+          <p class="text-sm text-gray-500">bio</p>
+          <p class="text-sm text-gray-900"><%= @profile.bio.presence || "Not set" %></p>
+        </div>
       </div>
 
       <!-- Edit Mode (Hidden by default) -->
@@ -179,6 +197,16 @@ function cancelAccountEdit() {
                 class: "w-full border rounded-lg px-3 py-2" %>
           </div>
 
+
+            <!-- Bio Field -->
+          <div class="mb-3">
+            <%= f.label :bio, "Bio", class: "text-sm text-gray-500" %>
+            <%= f.text_area :bio,
+                rows: 5,
+                placeholder: "Describe your company, goals, and the type of work you need…",
+                class: "w-full border rounded-lg px-3 py-2 resize-none" %>
+          </div>
+
           <div class="flex gap-3">
             <button type="button"
               onclick="cancelCompanyEdit()"
@@ -196,7 +224,7 @@ function cancelAccountEdit() {
     </div>
 </div>
 
-<script>
+<%# <script>
 function editCompany() {
   document.getElementById("company-view").classList.add("hidden");
   document.getElementById("company-edit").classList.remove("hidden");
@@ -206,7 +234,7 @@ function cancelCompanyEdit() {
   document.getElementById("company-edit").classList.add("hidden");
   document.getElementById("company-view").classList.remove("hidden");
 }
-</script>
+</script> %>
       <!-- Company Contacts Card -->
    <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
 

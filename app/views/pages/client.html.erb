@@ -1,11 +1,16 @@
 <div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
   <!-- Logo -->
-  <div class="mb-8">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <circle cx="12" cy="12" r="10" stroke-width="2" />
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
-    </svg>
+   <div class="mb-8">
+    <% if @profile&.image.present? %>
+      <%= image_tag @profile.image.url, width: "100%", class: "h-16 w-26 rounded-full" %>
+    <% else %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <circle cx="12" cy="12" r="10" stroke-width="2" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+      </svg>
+    <% end %>
   </div>
+
 
   <!-- Heading -->
   <h1 class="text-4xl font-bold text-gray-900 text-center mb-4">

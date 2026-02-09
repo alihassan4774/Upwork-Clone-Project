@@ -57,6 +57,14 @@ end
 
  gem "pundit", "~> 2.5", ">= 2.5.2"
 
+ gem 'carrierwave', '~> 3.1', '>= 3.1.2'
+
+ gem 'carrierwave-aws', '~> 1.6', '>= 1.6.1'
+
+ gem 'mini_magick', '~> 5.3', '>= 5.3.1'
+
+
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"

@@ -10,10 +10,27 @@
         Tell freelancers a bit about your company
       </p>
     </div>
-    <%= current_user.role %>
-    <%= form_with model: @client_profile,
-                  url: client_profiles_path,
+    <%# <%= current_user.role %> 
+     <%= form_with model: @profile, 
+                  url: profile_path,
+                   html: { multipart: true },
                   class: "space-y-6" do |f| %>
+
+        <div class="mb-4">
+            <%= f.file_field :image,
+              class: "block w-full text-sm text-gray-800
+                border border-gray-300 rounded-md
+                bg-white
+                focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+                file:mr-3 file:py-2 file:px-4
+                file:rounded-md
+                file:border-0
+                file:text-sm file:font-medium
+                file:bg-green-50 file:text-green-700
+                hover:file:bg-green-100
+                transition" %>
+        </div>
+
 
       <!-- Company Name -->
       <div>
@@ -25,7 +42,27 @@
           class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-2
                  focus:ring-2 focus:ring-green-600 focus:border-green-600
                  transition" %>
+
       </div>
+
+ <div>
+        <%= f.label :size, "Company Size",
+          class: "block text-sm font-medium text-gray-700" %>
+
+        <%= f.select :size, 
+          options_for_select([
+            ['1-10 employees', '1-10'],
+            ['11-50 employees', '11-50'],
+            ['51-200 employees', '51-200'],
+            ['201-500 employees', '201-500'],
+            ['500+ employees', '500+']
+          ]),
+          { include_blank: 'Select company size' },
+          class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-2
+                 focus:ring-2 focus:ring-green-600 focus:border-green-600
+                 transition" %>
+      </div>
+
 
       <!-- Bio -->
       <div>
@@ -39,6 +76,41 @@
                  focus:ring-2 focus:ring-green-600 focus:border-green-600
                  transition resize-none" %>
       </div>
+
+
+      <div>
+          <%= f.label :phone, "Phone", class: "text-sm text-gray-500 block mb-1" %>
+          <%= f.text_field :phone,
+              placeholder: "+1 (555) 123-4567",
+              class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
+
+        <div>
+          <%= f.label :vat_id, "VAT ID", class: "text-sm text-gray-500 block mb-1" %>
+          <%= f.text_field :vat_id,
+              placeholder: "Enter VAT ID",
+              class: "w-full border rounded-lg px-3 py-2" %>
+          <p class="text-xs text-gray-500 mt-1">
+            Value Added Tax identification number
+          </p>
+        </div>
+
+        <div>
+          <%= f.label :timezone, "Time Zone", class: "text-sm text-gray-500 block mb-1" %>
+          <%= f.select :timezone,
+              time_zone_options_for_select(@profile.timezone, nil, ActiveSupport::TimeZone),
+              { include_blank: 'Select timezone' },
+              class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
+
+        <div>
+          <%= f.label :address, "Address", class: "text-sm text-gray-500 block mb-1" %>
+          <%= f.text_area :address,
+              rows: 3,
+              placeholder: "Enter company address",
+              class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
+
 
       <!-- Submit -->
       <div class="pt-4">

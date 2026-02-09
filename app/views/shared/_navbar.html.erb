@@ -31,8 +31,7 @@
           </svg>
         </button>
 
-        <!-- Messages -->
-        <a href="/messages" class="text-gray-700 hover:text-gray-900 font-medium">Messages</a>
+       
       </div>
     </div>
 
@@ -77,7 +76,13 @@
         <div class="relative" id="user-dropdown">
   <!-- Avatar button -->
   <button id="dropdown-button" class="flex items-center justify-center w-9 h-9 bg-teal-500 rounded-full text-white font-semibold hover:bg-teal-600">
-    <%= current_user.email[0].upcase %>
+   <% if current_user.profile&.image.present? %>
+              <%= image_tag current_user.profile.image.url, class: "w-full h-full object-cover" %>
+            <% else %>
+              <div class="w-full h-full bg-teal-500 flex items-center justify-center text-white font-semibold">
+                <%= current_user.email[0].upcase %>
+              </div>
+            <% end %>
   </button>
 
   <!-- Dropdown Menu -->

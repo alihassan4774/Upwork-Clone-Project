@@ -18,13 +18,12 @@ class PagesController < ApplicationController
   end
 
   def client
+    @profile = current_user.profile || current_user.build_profile
   end
 
   def freelancer
   end
 
    def select_role
-  end
-
-
+   end
 end

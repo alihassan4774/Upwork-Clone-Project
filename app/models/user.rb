@@ -9,8 +9,6 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-  # Yahan change kiya: 'role:' ki jagah ':role,' kar diya
   enum :role, { client: 0, freelancer: 1 }
 
   # User create hone par profile bhi automatically create ho
@@ -23,6 +21,8 @@ class User < ApplicationRecord
        email: email
       ).save
    end
+
+   validates_presence_of :email, :name
 
   has_one :client_profile, dependent: :destroy
   has_one :freelancer_profile, dependent: :destroy

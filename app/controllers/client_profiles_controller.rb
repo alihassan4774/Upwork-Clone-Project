@@ -3,28 +3,48 @@ class ClientProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @client_profile = current_user.build_client_profile
+    @profile = current_user.build_profile || Profile.new
   end
 
- def create
-  @client_profile = current_user.build_client_profile(client_profile_params)
+  def create
+    @profile = current_user.build_profile(profile_params)
 
-  if @client_profile.save
-    redirect_to user_client_path, notice: "Profile created successfully!"
-  else
-    render :new
+    if @profile.save
+      redirect_to user_client_path, notice: "Profile created successfully!"
+    else
+      render :new
+    end
   end
-end
 
 
 
   def show
-    @client_profile = ClientProfile.find(params[:id])
+    @profile = Profile.find(params[:id])
+  end
+
+   def update
+    @profile = current_user.profile
+
+    if @profile.update(profile_params)
+      redirect_to request.referrer || profile_path, notice: "Profile updated successfully!"
+    else
+      render :edit
+    end
   end
 
   private
 
-  def client_profile_params
-    params.require(:client_profile).permit(:company_name, :bio)
+  def profile_params
+      params.require(:profile).permit(:first_name,
+      :last_name,
+      :email,
+      :image,
+      :company_name,
+      :size,
+      :bio,
+      :phone,
+      :vat_id,
+      :timezone,
+      :address)
   end
 end

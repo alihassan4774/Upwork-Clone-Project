@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # Profile routes
   resources :client_profiles, only: [ :new, :create, :show, :edit, :update ]
   resources :freelancer_profiles, only: [ :new, :create, :show, :edit, :update ]
-  resource :profile, only: [ :show, :edit, :update ]
+  resource :profile, controller: "client_profiles", only: [ :new, :create, :show, :edit, :update ]
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check

@@ -77,10 +77,11 @@
 
     <p class="mt-6 text-gray-600">
       Already have an account?
-      <a href="/users/sign_in" class="text-green-600 hover:underline">Log In</a>
+     <%= link_to "Log In", new_user_session_path, class: "text-green-600 hover:underline" %>
     </p>
   </div>
 </div>
+
 
 <script>
   const radios = document.querySelectorAll('.role-radio');
