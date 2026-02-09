@@ -1,5 +1,6 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  get "notifications/index"
   get "freelancer_profiles/new"
   get "freelancer_profiles/create"
   get "freelancer_profiles/show"
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
   get "/select-role", to: "pages#select_role", as: "select_role"
   get "welcome", to: "pages#welcome", as: "welcome_page"
   get "/profile", to: "profiles#show", as: :profile
+  get "/notification", to: "notifications#index", as: "notification"
   get "/profile/index"
 
 

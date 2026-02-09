@@ -8,23 +8,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-
-
-
-
-
-
-    
-
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-
-
-
-
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -36,10 +23,21 @@
   </head>
 
   <body>
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
+      
        <%= render 'shared/navbar' %>
+         
+       <% flash.each do |key, message| %>
+       <div class="w-full  py-2 px-5
+       <%=
+          case key
+          when 'notice' then 'bg-green-100 text-green-800'
+          when 'alert' then 'bg-red-100 text-red-800'
+          else 'bg-gray-100 text-gray-800'
+          end
+        %>">
+      <%= message %>
+    </div>
+  <% end %>
 
    <main class="w-full">
      

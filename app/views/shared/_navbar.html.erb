@@ -1,230 +1,414 @@
-<nav class="bg-white border-b border-gray-200 px-6">
-  <div class="h-16 flex items-center justify-between">
-
-    <!-- LEFT SIDE -->
+<nav class="bg-white border-b border-gray-200 px-6 h-16 flex items-center overflow-visible">
+  <div class="flex items-center justify-between w-full">
+    <!-- Left Side -->
     <div class="flex items-center space-x-8">
       <!-- Logo -->
       <%= link_to "Upwork", logo_redirect_path,
-          class: "text-2xl font-bold text-green-600" %>
+        class: "text-2xl font-bold text-green-600 tracking-tight" %>
 
       <!-- Navigation Links -->
-      <div class="flex items-center space-x-6 h-10">
+      <div class="flex items-center space-x-6 h-full">
 
         <!-- Hire Talent -->
         <div class="relative group h-full flex items-center">
           <button
-            class="flex items-center space-x-1 h-full font-medium
-                   text-gray-700 hover:text-gray-900 transition">
-
+            class="flex items-center space-x-1 h-full px-1 font-medium
+                   text-gray-800 hover:text-gray-900 transition-colors">
             <span>Hire Talent</span>
-
-            <svg class="w-4 h-4 transition-transform duration-200
-                        group-hover:rotate-180"
+            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
-          <!-- Dropdown -->
           <div
             class="absolute left-0 top-full mt-2 w-64 bg-white
-                   border border-gray-200 rounded-xl shadow-lg
+                   border border-gray-200 rounded-xl shadow-xl
                    opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                   transition-all duration-200 z-50">
+                   transition-all duration-200 ease-out z-50">
 
-            <p class="px-4 pt-3 pb-1 text-xs font-semibold text-gray-500 uppercase">
+            <p class="px-4 pt-4 pb-2 text-xs font-semibold text-gray-500 uppercase">
               Manage jobs and offers
             </p>
 
             <%= link_to "Job posts and proposals", "#",
-                class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-300" %>
+              class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100" %>
 
             <%= link_to "Pending offers", "#",
-                class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-300" %>
+              class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100" %>
 
             <div class="my-2 border-t border-gray-100"></div>
 
-            <p class="px-4 pb-1 text-xs font-semibold text-gray-500 uppercase">
+            <p class="px-4 pb-2 text-xs font-semibold text-gray-500 uppercase">
               Find freelancers
             </p>
 
             <%= link_to "Search for talent", "#",
-                class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-300" %>
+              class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100" %>
 
             <%= link_to "Talent you've hired", "#",
-                class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-300" %>
+              class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100" %>
 
             <%= link_to "Talent you've saved", "#",
-                class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-300 rounded-b-xl" %>
+              class: "block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-b-xl" %>
           </div>
         </div>
 
-       <!-- Manage Work -->
-<div class="relative group h-full flex items-center">
-  <button
-    class="flex items-center space-x-1 h-full font-medium
-           text-gray-700 hover:text-gray-900 transition">
+        <!-- Manage Work -->
+        <div class="relative group h-full flex items-center">
+          <button
+            class="flex items-center space-x-1 h-full px-1 font-medium
+                   text-gray-800 hover:text-gray-900 transition-colors">
+            <span>Manage Work</span>
+            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
 
-    <span>Manage Work</span>
+          <div
+            class="absolute left-0 top-full mt-2 w-64 bg-white
+                   border border-gray-200 rounded-xl shadow-xl
+                   opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                   transition-all duration-200 ease-out z-50">
 
-    <svg class="w-4 h-4 transition-transform duration-200
-                group-hover:rotate-180"
-         fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
+            <p class="px-4 pt-4 pb-2 text-xs font-semibold text-gray-500 uppercase">
+              Active and past work
+            </p>
 
-  <!-- Dropdown -->
-  <div
-    class="absolute left-0 top-full mt-2 w-64 bg-white
-           border border-gray-200 rounded-xl shadow-lg
-           opacity-0 invisible group-hover:opacity-100 group-hover:visible
-           transition-all duration-200 z-50">
+            <%= link_to "Your contracts", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
 
-    <p class="px-4 pt-3 pb-1 text-xs font-semibold text-gray-500 uppercase">
-      Active and past work
-    </p>
+            <div class="my-2 border-t border-gray-100"></div>
 
-    <%= link_to "yours contracts", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300" %>
+            <p class="px-4 pb-2 text-xs font-semibold text-gray-500 uppercase">
+              Hourly contract activity
+            </p>
 
-    <div class="my-2 border-t border-gray-100"></div>
+            <%= link_to "Timesheets", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
+            <%= link_to "Time by freelancer", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
+            <%= link_to "Work diaries", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
+            <%= link_to "Custom export", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100 rounded-b-xl" %>
+          </div>
+        </div>
 
-    <p class="px-4 pb-1 text-xs font-semibold text-gray-500 uppercase">
-     Hourly contract activity
-    </p>
-
-    <%= link_to "Timesheets", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300" %>
-
-    <%= link_to "Time by freelancer", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300 rounded-b-xl" %>
-    <%= link_to "Work diaries", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300 rounded-b-xl" %>
-    <%= link_to "Custom export", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300 rounded-b-xl" %>
-  </div>
-</div>
-
-
-      
         <!-- Reports -->
-<div class="relative group h-full flex items-center">
-  <button
-    class="flex items-center space-x-1 h-full font-medium
-           text-gray-700 hover:text-gray-900 transition">
+        <div class="relative group h-full flex items-center">
+          <button
+            class="flex items-center space-x-1 h-full px-1 font-medium
+                   text-gray-800 hover:text-gray-900 transition-colors">
+            <span>Reports</span>
+            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
 
-    <span>Reports</span>
+          <div
+            class="absolute left-0 top-full mt-2 w-64 bg-white
+                   border border-gray-200 rounded-xl shadow-xl
+                   opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                   transition-all duration-200 ease-out z-50">
 
-    <svg class="w-4 h-4 transition-transform duration-200
-                group-hover:rotate-180"
-         fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
-
-  <!-- Dropdown -->
-  <div
-    class="absolute left-0 top-full mt-2 w-64 bg-white
-           border border-gray-200 rounded-xl shadow-lg
-           opacity-0 invisible group-hover:opacity-100 group-hover:visible
-           transition-all duration-200 z-50">
-
-   
-
-    <%= link_to "Weekly financial summary", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300" %>
-
-    <%= link_to "Transaction history", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300" %>
-
-    <%= link_to "Spending by activity", "#",
-        class: "block px-4 py-2 text-sm hover:bg-gray-300" %>
-
-   
-
-   
-  </div>
-</div>
+            <%= link_to "Weekly financial summary", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
+            <%= link_to "Transaction history", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
+            <%= link_to "Spending by activity", "#",
+              class: "block px-4 py-2 text-sm hover:bg-gray-100 rounded-b-xl" %>
+          </div>
+        </div>
 
       </div>
     </div>
 
-    <!-- RIGHT SIDE -->
-    <div class="flex items-center space-x-4 h-10">
+    <!-- Right Side -->
+    <div class="flex items-center space-x-4 mr-5">
       <% if user_signed_in? %>
-
         <!-- Search -->
-        <div class="relative h-full flex items-center">
-          <svg class="absolute left-3 h-5 w-5 text-gray-400"
-               fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-
-          <input
-            type="text"
-            placeholder="Search"
-            class="h-9 w-64 pl-10 pr-4 border border-gray-300
-                   rounded-full text-sm focus:ring-2 focus:ring-green-500">
-        </div>
-
-        <!-- Help -->
-        <button class="h-9 w-9 flex items-center justify-center rounded-full hover:bg-gray-100">
-          <!-- icon -->
-        </button>
-
-        <!-- Notifications -->
-        <button class="h-9 w-9 flex items-center justify-center rounded-full hover:bg-gray-100">
-          <!-- icon -->
-        </button>
-
-        <!-- Avatar -->
-        <div class="relative">
-          <button
-            id="dropdown-button"
-            class="h-9 w-9 rounded-full bg-teal-500 text-white
-                   flex items-center justify-center font-semibold">
-
-            <% if current_user.profile&.image.present? %>
-              <%= image_tag current_user.profile.image.url,
-                  class: "w-full h-full object-cover rounded-full" %>
-            <% else %>
-              <%= current_user.email[0].upcase %>
-            <% end %>
-          </button>
-
-          <div
-            id="dropdown-menu"
-            class="hidden absolute right-0 mt-2 w-48 bg-white
-                   rounded-lg shadow-lg py-2 z-50">
-
-            <%= link_to "Profile", profile_path,
-                class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
-
-            <%= link_to "Settings", profile_path,
-                class: "block px-4 py-2 text-sm hover:bg-gray-100" %>
-
-            <hr class="my-2">
-
-            <%= button_to "Logout",
-                destroy_user_session_path,
-                method: :delete,
-                class: "block w-full text-left px-4 py-2 text-sm hover:bg-gray-100" %>
+          <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
           </div>
+          <input type="text" placeholder="Search" class="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
         </div>
+
+        <!-- Talent Dropdown -->
+       <div class="relative group h-full flex items-center overflow-visible">
+  <button
+    class="flex items-center space-x-1 h-full px-1 font-medium
+           text-gray-800 hover:text-gray-900 transition-colors">
+    <span>Talent</span>
+    <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  <div
+    class="absolute left-0 top-full mt-2 w-56 bg-white
+           border border-gray-200 rounded-2xl shadow-xl
+           opacity-0 invisible group-hover:opacity-100 group-hover:visible
+           transition-all duration-200 ease-out z-50">
+
+    <!-- Talent -->
+    <%= link_to "#",
+      class: "flex items-start gap-3 px-4 py-3 rounded-t-2xl hover:bg-gray-100" do %>
+      <svg class="w-6 h-6 text-gray-700 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1
+                 m5-4a4 4 0 11-8 0 4 4 0 018 0
+                 m6 4a3 3 0 11-6 0 3 3 0 016 0" />
+      </svg>
+      <div>
+        <p class="text-sm font-semibold text-gray-900">Talent</p>
+        <p class="text-xs text-gray-600">
+          Find freelancers and agencies
+        </p>
+      </div>
+    <% end %>
+
+    <!-- Projects -->
+    <%= link_to "#",
+      class: "flex items-start gap-3 px-4 py-3 hover:bg-gray-100" do %>
+      <svg class="w-6 h-6 text-gray-700 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7
+                 a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <div>
+        <p class="text-sm font-semibold text-gray-900">Projects</p>
+        <p class="text-xs text-gray-600">
+          See projects from other pros
+        </p>
+      </div>
+    <% end %>
+
+    <!-- Jobs -->
+    <%= link_to "#",
+      class: "flex items-start gap-3 px-4 py-3 rounded-b-2xl hover:bg-gray-100" do %>
+      <svg class="w-6 h-6 text-gray-700 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12h6m-6 4h6m-7 4h8a2 2 0 002-2V6
+                 a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <div>
+        <p class="text-sm font-semibold text-gray-900">Jobs</p>
+        <p class="text-xs text-gray-600">
+          View jobs posted by clients
+        </p>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+
+
+        <!-- Help Icon -->
+       <div class="relative group">
+  <!-- Help Button -->
+  <button
+    class="text-gray-600 hover:text-gray-900 focus:outline-none">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8.228 9c.549-1.165 2.03-2 3.772-2
+               2.21 0 4 1.343 4 3
+               0 1.4-1.278 2.575-3.006 2.907
+               -.542.104-.994.54-.994 1.093
+               m0 3h.01
+               M21 12a9 9 0 11-18 0
+               9 9 0 0118 0z" />
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  <div
+    class="absolute right-0 top-full mt-2 w-64 bg-white
+           border border-gray-200 rounded-2xl shadow-xl
+           opacity-0 invisible group-hover:opacity-100 group-hover:visible
+           transition-all duration-200 ease-out z-50">
+
+    <%= link_to "Help center", "#",
+      class: "block px-5 py-3 text-sm text-gray-800 hover:bg-gray-100 rounded-t-2xl" %>
+
+    <%= link_to "Support requests", "#",
+      class: "block px-5 py-3 text-sm text-gray-800 hover:bg-gray-100" %>
+
+    <%= link_to "What's new", "#",
+      class: "block px-5 py-3 text-sm text-gray-800 hover:bg-gray-100" %>
+
+    <%= link_to "Release notes", "#",
+      class: "block px-5 py-3 text-sm text-gray-800 hover:bg-gray-100 rounded-b-2xl" %>
+  </div>
+</div>
+
+
+
+        <!-- Notifications Icon -->
+      <%= link_to notification_path, class: "text-gray-600 hover:text-gray-900" do %>
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+  </svg>
+<% end %>
+        <!-- Avatar -->
+<div class="relative">
+  <button
+    id="dropdown-button"
+    class="h-9 w-9 rounded-full bg-teal-500 text-white
+           flex items-center justify-center font-semibold hover:ring-2 hover:ring-teal-300 transition">
+
+    <% if current_user.profile&.image.present? %>
+      <%= image_tag current_user.profile.image.url,
+          class: "w-full h-full object-cover rounded-full" %>
+    <% else %>
+      <%= current_user.email[0].upcase %>
+    <% end %>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div
+    id="dropdown-menu"
+    class="hidden absolute right-0 mt-3 w-80 bg-white
+           rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50">
+
+    <!-- Profile Section -->
+    <div class="p-5 border-b border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="h-14 w-14 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-xl">
+          <% if current_user.profile&.image.present? %>
+            <%= image_tag current_user.profile.image.url,
+                class: "w-full h-full object-cover rounded-full" %>
+          <% else %>
+            <%= current_user.email[0].upcase %>
+          <% end %>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 text-base">
+            <%= "#{current_user.profile&.first_name} #{current_user.profile&.last_name}".strip.presence || current_user.email.split('@').first.titleize %>
+          </h3>
+          <p class="text-sm text-gray-600">Basic</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Online Toggle -->
+    <div class="px-5 py-3 border-b border-gray-100">
+      <div class="flex items-center justify-between">
+        <span class="text-sm font-medium text-gray-900">Online for messages</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Try Business Plus -->
+    <div class="mx-5 my-3 p-4 bg-gradient-to-br from-green-50 to-yellow-50 border-2 border-green-200 rounded-xl">
+      <h4 class="font-semibold text-gray-900 text-sm mb-1 flex items-center gap-1">
+        Try Business Plus 
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </h4>
+      <p class="text-xs text-gray-600 leading-relaxed">
+        Upgrade for quicker access to the top 1% of freelancers. No upfront costs.
+      </p>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="py-2">
+      <%= link_to profile_path, class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
+        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="text-sm font-medium text-gray-900">Account health</span>
+      <% end %>
+
+      <%= link_to "#", class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
+        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+        </svg>
+        <span class="text-sm font-medium text-gray-900">Membership plan</span>
+      <% end %>
+
+      <%= link_to "#", class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
+        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+        </svg>
+        <span class="text-sm font-medium text-gray-900">Invite a coworker</span>
+      <% end %>
+
+      <%= link_to "#", class: "flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition" do %>
+        <div class="flex items-center gap-3">
+          <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <span class="text-sm font-medium text-gray-900">Theme: Light</span>
+        </div>
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      <% end %>
+
+      <%= link_to profile_path, class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
+        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span class="text-sm font-medium text-gray-900">Account settings</span>
+      <% end %>
+    </div>
+
+    <!-- Logout -->
+    <div class="border-t border-gray-100 py-2">
+      <%= button_to destroy_user_session_path, method: :delete,
+          class: "flex items-center gap-3 px-5 py-3 w-full text-left hover:bg-gray-50 transition" do %>
+        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        </svg>
+        <span class="text-sm font-medium text-gray-900">Log out</span>
+      <% end %>
+    </div>
+
+  </div>
+</div>
 
       <% else %>
         <%= link_to "Log In", new_user_session_path,
-            class: "font-medium text-gray-700 hover:text-gray-900" %>
+          class: "text-gray-700 hover:text-gray-900 font-medium px-4 py-2" %>
 
         <%= link_to "Sign Up", select_role_path,
-            class: "bg-green-600 hover:bg-green-700 text-white
-                    font-medium px-5 py-2 rounded-full" %>
+          class: "bg-green-600 hover:bg-green-700 text-white font-medium
+                 px-6 py-2 rounded-full transition" %>
       <% end %>
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("dropdown-button");
+    const menu = document.getElementById("dropdown-menu");
+
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      menu.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", () => {
+      menu.classList.add("hidden");
+    });
+  });
+</script>
