@@ -1,386 +1,398 @@
-
-
-
 <div class="max-w-4xl mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-6">My Info</h1>
-  
-  <!-- Flash Messages -->
-  <% if notice %>
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-      <%= notice %>
-    </div>
-  <% end %>
-  
-  <% if alert %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-      <%= alert %>
-    </div>
-  <% end %>
-  
   <div class="flex gap-6">
     <!-- Sidebar -->
-    <div class="w-64">
-      <ul class="space-y-2 text-sm">
-        <li class="text-gray-700 hover:text-gray-900 cursor-pointer">Billing & Payments</li>
-        <li class="text-gray-700 hover:text-gray-900 cursor-pointer">Password & Security</li>
-        <li class="text-gray-700 hover:text-gray-900 cursor-pointer">Teams & Members</li>
-        <li class="text-gray-700 hover:text-gray-900 cursor-pointer">Membership</li>
-        <li class="text-gray-700 hover:text-gray-900 cursor-pointer">Identity Verification</li>
-      </ul>
-    </div>
-    
+    <%= render "settings" %>
+
     <!-- Main Content -->
+    <div class="flex-1" data-controller="account">
 
-    <!-- Account Card -->
-    <div class="flex-1">
-    <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+      <!-- ================= ACCOUNT CARD ================= -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+        <button
+          data-action="click->account#edit"
+          class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+          ✎
+        </button>
 
-    <!-- Edit Button -->
-    <button onclick="openEditAccount()" class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
-      ✎
-    </button>
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Account</h2>
 
-    <h2 class="text-lg font-semibold text-gray-900 mb-4">Account</h2>
-
-    <div class="flex items-start gap-6">
-
-      <!-- Avatar -->
-      <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-     <% if @profile.image.present? %>
-     <%= image_tag @profile.image.url, width: "100%" %>
-     <% else %>
-       <span class="text-gray-400">No image</span>
-     <% end %>
-      </div>
- 
-  
-
-
-      <!-- Info -->
-      <div id="account-view">
-        <div class="space-y-1">
-          <p class="font-semibold text-gray-900"><%= @profile.first_name.presence || current_user.name || "Not set" %></p>
-          <p class="text-sm text-gray-600">Basic</p>
-
-          <div class="flex gap-3 mt-3">
-            <p class="text-sm text-gray-500">Name:</p>
-            <p class="text-sm text-gray-900"><%= @profile.first_name.presence || current_user.name %></p>
+        <div class="flex items-start gap-6">
+          <!-- Avatar -->
+          <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+            <% if @profile.image.present? %>
+              <%= image_tag @profile.image.url, width: "100%" %>
+            <% else %>
+              <span class="text-gray-400">No image</span>
+            <% end %>
           </div>
 
-          <div class="flex gap-3 mt-3">
-            <p class="text-sm text-gray-500">Email:</p>
-            <p class="text-sm text-gray-900"><%= @profile.email.presence || current_user.email %></p>
+          <!-- View Mode -->
+          <div data-account-target="view">
+            <div class="space-y-1">
+              <p class="font-semibold text-gray-900">
+                <%= @profile.first_name.presence || current_user.name || "Not set" %>
+              </p>
+              <p class="text-sm text-gray-600">Basic</p>
+
+              <div class="flex gap-3 mt-3">
+                <p class="text-sm text-gray-500">Name:</p>
+                <p class="text-sm text-gray-900">
+                  <%= @profile.first_name.presence || current_user.name %>
+                </p>
+              </div>
+
+              <div class="flex gap-3 mt-3">
+                <p class="text-sm text-gray-500">Email:</p>
+                <p class="text-sm text-gray-900">
+                  <%= @profile.email.presence || current_user.email %>
+                </p>
+              </div>
+            </div>
           </div>
-          
-          
-          
-          
+
+          <!-- Edit Mode -->
+          <div data-account-target="edit" class="hidden flex-1">
+            <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+              <div class="mb-3">
+                <%= f.label :first_name, "First Name", class: "text-sm text-gray-500" %>
+                <%= f.text_field :first_name,
+                      value: @profile.first_name.presence || current_user.name,
+                      class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :email, class: "text-sm text-gray-500" %>
+                <%= f.email_field :email,
+                      value: @profile.email.presence || current_user.email,
+                      class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div class="flex gap-3">
+                <button
+                  type="button"
+                  data-action="click->account#cancel"
+                  class="px-4 py-2 border rounded-lg">
+                  Cancel
+                </button>
+
+                <%= f.submit "Save",
+                      class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
 
-      <!-- Edit Form (Hidden by default) -->
-      <div id="account-edit" class="hidden flex-1">
-        <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+      <!-- ================= COMPANY DETAILS ================= -->
+      <div data-controller="company" class="bg-white border pb-20 border-gray-200 rounded-xl p-6 relative">
+        <button
+          data-action="click->company#edit"
+          class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+          ✎
+        </button>
 
-          <div class="mb-3">
-            <%= f.label :first_name, "First Name", class: "text-sm text-gray-500" %>
-            <%= f.text_field :first_name,
-                value: @profile.first_name.presence || current_user.name,
-                class: "w-full border rounded-lg px-3 py-2" %>
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Company details</h2>
+
+        <div class="flex items-start gap-6">
+          <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+            🏢
           </div>
 
-          <div class="mb-3">
-            <%= f.label :email, class: "text-sm text-gray-500" %>
-            <%= f.email_field :email,
-                value: @profile.email.presence || current_user.email,
-                class: "w-full border rounded-lg px-3 py-2" %>
-          </div>
-          
-         
-          
-         
+          <div data-company-target="view" class="space-y-3">
+            <div>
+              <p class="text-sm text-gray-500">Company name</p>
+              <p class="text-sm text-gray-900"><%= @profile.company_name.presence || "Not set" %></p>
+            </div>
 
-          <div class="flex gap-3">
-            <button type="button"
-              onclick="openCancelAccountEdit()"
-              class="px-4 py-2 border rounded-lg">
-              Cancel
-            </button>
+            <div>
+              <p class="text-sm text-gray-500">Size</p>
+              <p class="text-sm text-gray-900"><%= @profile.size.presence || "Not set" %></p>
+            </div>
 
-            <%= f.submit "Save",
-                  class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+            <div>
+              <p class="text-sm text-gray-500">bio</p>
+              <p class="text-sm text-gray-900"><%= @profile.bio.presence || "Not set" %></p>
+            </div>
           </div>
 
-        <% end %>
-      </div>
+          <div data-company-target="edit" class="hidden flex-1">
+            <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+              <div class="mb-3">
+                <%= f.label :company_name, "Company Name", class: "text-sm text-gray-500" %>
+                <%= f.text_field :company_name, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
 
-    </div>
-</div>
+              <div class="mb-3">
+                <%= f.label :size, "Company Size", class: "text-sm text-gray-500" %>
+                <%= f.select :size,
+                      options_for_select(
+                        [
+                          ["1-10 employees", "1-10"],
+                          ["11-50 employees", "11-50"],
+                          ["51-200 employees", "51-200"],
+                          ["201-500 employees", "201-500"],
+                          ["500+ employees", "500+"]
+                        ],
+                        @profile.size
+                      ),
+                      { include_blank: "Select size" },
+                      class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
 
+              <div class="mb-3">
+                <%= f.label :bio, "Bio", class: "text-sm text-gray-500" %>
+                <%= f.text_area :bio,
+                      rows: 5,
+                      placeholder: "Describe your company, goals, and the type of work you need…",
+                      class: "w-full border rounded-lg px-3 py-2 resize-none" %>
+              </div>
 
+              <div class="flex gap-3">
+                <button
+                  type="button"
+                  data-action="click->company#cancel"
+                  class="px-4 py-2 border rounded-lg">
+                  Cancel
+                </button>
 
-<script>
- function editAccount() {
-   document.getElementById("account-view").classList.add("hidden");
-  document.getElementById("account-edit").classList.remove("hidden");
- }
-
- function cancelAccountEdit() {
-   document.getElementById("account-edit").classList.add("hidden");
-   document.getElementById("account-view").classList.remove("hidden");
- }
-
-
-import {openEditAccount} from "javascript/account_model"
-import {openCancelAccountEdit} from "javascript/account_model"
-</script> 
-
-
-
-      <!-- Company Details Card -->
-     
-
-<div class="bg-white border pb-20 border-gray-200 rounded-xl p-6 relative">
-
-    <!-- Edit Button -->
-    <button onclick="editCompany()" class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
-      ✎
-    </button>
-
-    <h2 class="text-lg font-semibold text-gray-900 mb-4">Company details</h2>
-
-    <div class="flex items-start gap-6">
-
-      <!-- Icon -->
-      <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-        🏢
-      </div>
-
-      <!-- View Mode -->
-      <div id="company-view" class="space-y-3">
-        <div>
-          <p class="text-sm text-gray-500">Company name</p>
-          <p class="text-sm text-gray-900"><%= @profile.company_name.presence || "Not set" %></p>
-        </div>
-
-        <div>
-          <p class="text-sm text-gray-500">Size</p>
-          <p class="text-sm text-gray-900"><%= @profile.size.presence || "Not set" %></p>
-        </div>
-        <div>
-          <p class="text-sm text-gray-500">bio</p>
-          <p class="text-sm text-gray-900"><%= @profile.bio.presence || "Not set" %></p>
+                <%= f.submit "Save",
+                      class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
 
-      <!-- Edit Mode (Hidden by default) -->
-      <div id="company-edit" class="hidden flex-1">
-        <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+      <!-- ================= COMPANY CONTACTS ================= -->
+      <div data-controller="contacts" class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+        <button
+          data-action="click->contacts#edit"
+          class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+          ✎
+        </button>
 
-          <div class="mb-3">
-            <%= f.label :company_name, "Company Name", class: "text-sm text-gray-500" %>
-            <%= f.text_field :company_name,
-                class: "w-full border rounded-lg px-3 py-2" %>
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Company contacts</h2>
+
+        <div data-contacts-target="view" class="space-y-4 text-sm">
+          <div>
+            <p class="text-gray-500">Owner</p>
+            <p class="text-gray-900 font-medium"><%= current_user.name || "Not set" %></p>
           </div>
 
-          <div class="mb-3">
-            <%= f.label :size, "Company Size", class: "text-sm text-gray-500" %>
-            <%= f.select :size, 
-                options_for_select([
-                  ['1-10 employees', '1-10'],
-                  ['11-50 employees', '11-50'],
-                  ['51-200 employees', '51-200'],
-                  ['201-500 employees', '201-500'],
-                  ['500+ employees', '500+']
-                ], @profile.size),
-                { include_blank: 'Select size' },
-                class: "w-full border rounded-lg px-3 py-2" %>
+          <div>
+            <p class="text-gray-500">Phone</p>
+            <p class="text-gray-900"><%= @profile.phone.presence || "—" %></p>
           </div>
 
-
-            <!-- Bio Field -->
-          <div class="mb-3">
-            <%= f.label :bio, "Bio", class: "text-sm text-gray-500" %>
-            <%= f.text_area :bio,
-                rows: 5,
-                placeholder: "Describe your company, goals, and the type of work you need…",
-                class: "w-full border rounded-lg px-3 py-2 resize-none" %>
+          <div>
+            <p class="text-gray-500">VAT ID</p>
+            <p class="text-gray-900"><%= @profile.vat_id.presence || "—" %></p>
           </div>
 
-          <div class="flex gap-3">
-            <button type="button"
-              onclick="cancelCompanyEdit()"
-              class="px-4 py-2 border rounded-lg">
-              Cancel
-            </button>
-
-            <%= f.submit "Save",
-                  class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+          <div>
+            <p class="text-gray-500">Time Zone</p>
+            <p class="text-gray-900"><%= @profile.timezone.presence || "—" %></p>
           </div>
 
-        <% end %>
+          <div>
+            <p class="text-gray-500">Address</p>
+            <p class="text-gray-900"><%= @profile.address.presence || "—" %></p>
+          </div>
+        </div>
+
+        <div data-contacts-target="edit" class="hidden">
+          <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+            <div class="space-y-4">
+              <div>
+                <%= f.label :phone, "Phone", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.text_field :phone, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div>
+                <%= f.label :vat_id, "VAT ID", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.text_field :vat_id, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div>
+                <%= f.label :timezone, "Time Zone", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.select :timezone,
+                      time_zone_options_for_select(@profile.timezone, nil, ActiveSupport::TimeZone),
+                      { include_blank: "Select timezone" },
+                      class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div>
+                <%= f.label :address, "Address", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.text_area :address, rows: 3, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+              <button
+                type="button"
+                data-action="click->contacts#cancel"
+                class="px-4 py-2 border rounded-lg">
+                Cancel
+              </button>
+
+              <%= f.submit "Save",
+                    class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+            </div>
+          <% end %>
+        </div>
       </div>
 
-    </div>
-</div>
+ <!-- Education card -->
 
-<%# <script>
-function editCompany() {
-  document.getElementById("company-view").classList.add("hidden");
-  document.getElementById("company-edit").classList.remove("hidden");
-}
+     <div
+  data-controller="education"
+  class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
 
-function cancelCompanyEdit() {
-  document.getElementById("company-edit").classList.add("hidden");
-  document.getElementById("company-view").classList.remove("hidden");
-}
-</script> %>
-      <!-- Company Contacts Card -->
-   <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
-
-  <button onclick="editContacts()" class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+  <!-- Edit Button -->
+  <button
+    data-action="click->education#edit"
+    class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600
+           flex items-center justify-center hover:bg-green-50">
     ✎
   </button>
 
-  <h2 class="text-lg font-semibold text-gray-900 mb-6">Company contacts</h2>
+  <h2 class="text-lg font-semibold text-gray-900 mb-4">Education</h2>
 
-  <!-- View Mode -->
-  <div id="contacts-view" class="space-y-4 text-sm">
+  <div class="flex items-start gap-6">
 
-    <div>
-      <p class="text-gray-500">Owner</p>
-      <p class="text-gray-900 font-medium"><%= current_user.name || "Not set" %></p>
+    <!-- View Mode -->
+    <div data-education-target="view" class="space-y-2">
+      <p class="text-sm text-gray-500">Education</p>
+      <p class="text-sm text-gray-900">
+        <%= @profile.education.presence || "Not set" %>
+      </p>
     </div>
 
-    <div>
-      <p class="text-gray-500">Phone</p>
-      <p class="text-gray-900"><%= @profile.phone.presence || "—" %></p>
-    </div>
+    <!-- Edit Mode -->
+    <div data-education-target="edit" class="hidden flex-1">
+      <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
 
-    <div>
-      <p class="text-gray-500">VAT ID</p>
-      <p class="text-gray-900"><%= @profile.vat_id.presence || "—" %></p>
-    </div>
-
-    <div>
-      <p class="text-gray-500">Time Zone</p>
-      <p class="text-gray-900"><%= @profile.timezone.presence || "—" %></p>
-    </div>
-
-    <div>
-      <p class="text-gray-500">Address</p>
-      <p class="text-gray-900"><%= @profile.address.presence || "—" %></p>
-    </div>
-
-  </div>
-
-  <!-- Edit Mode (Hidden by default) -->
-  <div id="contacts-edit" class="hidden">
-    <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
-
-      <div class="space-y-4">
-
-        <div>
-          <%= f.label :phone, "Phone", class: "text-sm text-gray-500 block mb-1" %>
-          <%= f.text_field :phone,
-              placeholder: "+1 (555) 123-4567",
-              class: "w-full border rounded-lg px-3 py-2" %>
+        <div class="mb-4">
+          <%= f.label :education, class: "text-sm text-gray-500" %>
+          <%= f.text_field :education,
+                class: "w-full border rounded-lg px-3 py-2" %>
         </div>
 
-        <div>
-          <%= f.label :vat_id, "VAT ID", class: "text-sm text-gray-500 block mb-1" %>
-          <%= f.text_field :vat_id,
-              placeholder: "Enter VAT ID",
-              class: "w-full border rounded-lg px-3 py-2" %>
-          <p class="text-xs text-gray-500 mt-1">
-            Value Added Tax identification number
+        <div class="flex gap-3">
+          <button
+            type="button"
+            data-action="click->education#cancel"
+            class="px-4 py-2 border rounded-lg">
+            Cancel
+          </button>
+
+          <%= f.submit "Save",
+                class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+    <!-- Experience card -->
+
+      <div
+  data-controller="experience"
+  class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+
+  <!-- Edit Button -->
+  <button
+    data-action="click->experience#edit"
+    class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600
+           flex items-center justify-center hover:bg-green-50">
+    ✎
+  </button>
+
+  <h2 class="text-lg font-semibold text-gray-900 mb-4">Experience</h2>
+
+  <div class="flex items-start gap-6">
+
+    <!-- View Mode -->
+    <div data-experience-target="view">
+      <div class="space-y-1">
+        <p class="font-semibold text-gray-900">
+          <%= @profile.experience_title.presence || "Not set" %>
+        </p>
+
+        <p class="text-sm text-gray-600">
+          <%= @profile.experience_company.presence %>
+        </p>
+
+        <div class="flex gap-3 mt-3">
+          <p class="text-sm text-gray-500">Duration:</p>
+          <p class="text-sm text-gray-900">
+            <%= @profile.experience_duration.presence || "Not set" %>
           </p>
         </div>
 
-        <div>
-          <%= f.label :timezone, "Time Zone", class: "text-sm text-gray-500 block mb-1" %>
-          <%= f.select :timezone,
-              time_zone_options_for_select(@profile.timezone, nil, ActiveSupport::TimeZone),
-              { include_blank: 'Select timezone' },
-              class: "w-full border rounded-lg px-3 py-2" %>
+        <div class="flex gap-3 mt-3">
+          <p class="text-sm text-gray-500">Description:</p>
+          <p class="text-sm text-gray-900">
+            <%= @profile.experience_description.presence || "Not set" %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Mode -->
+    <div data-experience-target="edit" class="hidden flex-1">
+      <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+
+        <div class="mb-3">
+          <%= f.label :experience_title, "Job Title", class: "text-sm text-gray-500" %>
+          <%= f.text_field :experience_title,
+                class: "w-full border rounded-lg px-3 py-2" %>
         </div>
 
-        <div>
-          <%= f.label :address, "Address", class: "text-sm text-gray-500 block mb-1" %>
-          <%= f.text_area :address,
-              rows: 3,
-              placeholder: "Enter company address",
-              class: "w-full border rounded-lg px-3 py-2" %>
+        <div class="mb-3">
+          <%= f.label :experience_company, "Company", class: "text-sm text-gray-500" %>
+          <%= f.text_field :experience_company,
+                class: "w-full border rounded-lg px-3 py-2" %>
         </div>
 
-      </div>
+        <div class="mb-3">
+          <%= f.label :experience_duration, "Duration", class: "text-sm text-gray-500" %>
+          <%= f.text_field :experience_duration,
+                placeholder: "e.g. Jan 2023 – Dec 2024",
+                class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
 
-      <div class="flex gap-3 mt-6">
-        <button type="button"
-          onclick="cancelContactsEdit()"
-          class="px-4 py-2 border rounded-lg">
-          Cancel
-        </button>
+        <div class="mb-4">
+          <%= f.label :experience_description, "Description", class: "text-sm text-gray-500" %>
+          <%= f.text_area :experience_description,
+                rows: 3,
+                class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
 
-        <%= f.submit "Save",
-              class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
-      </div>
+        <div class="flex gap-3">
+          <button
+            type="button"
+            data-action="click->experience#cancel"
+            class="px-4 py-2 border rounded-lg">
+            Cancel
+          </button>
 
-    <% end %>
-  </div>
+          <%= f.submit "Save",
+                class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+        </div>
 
-</div>
-
-<script>
-function editContacts() {
-  document.getElementById("contacts-view").classList.add("hidden");
-  document.getElementById("contacts-edit").classList.remove("hidden");
-}
-
-function cancelContactsEdit() {
-  document.getElementById("contacts-edit").classList.add("hidden");
-  document.getElementById("contacts-view").classList.remove("hidden");
-}
-</script>
-
-
-  <!--  client account -->
-      <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-
-  <p class="text-gray-900 font-medium mb-4">
-    This is a client account
-  </p>
-
-  <div class="flex items-center gap-6">
-
-    <button class="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-green-700 transition">
-      Create New Account
-    </button>
-
-    <a href="#" class="text-green-600 text-sm font-medium hover:underline">
-      Close account
-    </a>
-
+      <% end %>
+    </div>
   </div>
 </div>
 
-      <!-- AI Preference Card -->
-   <div class="bg-white border border-gray-200 rounded-xl p-6">
+       
 
-  <h2 class="text-lg font-semibold text-gray-900 mb-2">
-    AI preference
-  </h2>
 
-  <p class="text-sm text-gray-600 mb-4">
-    Choose how your Upwork data is used for AI training and improvement.
-    <a href="#" class="text-green-600 hover:underline">Learn more</a>
-  </p>
 
-  <button class="border-2 border-green-600 text-green-600 px-6 py-2 rounded-full text-sm font-medium hover:bg-green-50 transition">
-    Set preference
-  </button>
-
-</div>
+      <%= render "client_account_card" %>
+      <%= render "ai_preference_card" %>
 
     </div>
   </div>

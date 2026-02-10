@@ -1,0 +1,19 @@
+<div data-controller="education" class="bg-white border rounded-xl p-6 relative">
+  <button data-action="click->education#edit" class="absolute top-6 right-6 ...">✎</button>
+
+  <h2 class="text-lg font-semibold mb-4">Education</h2>
+
+  <div data-education-target="view">
+    <p><%= @profile.education.presence || "Not set" %></p>
+  </div>
+
+  <div data-education-target="edit" class="hidden">
+    <%= form_with model: @profile, url: profile_path, method: :patch do |f| %>
+      <%= f.text_field :education, class: "w-full border rounded-lg" %>
+      <div class="mt-4 flex gap-3">
+        <button type="button" data-action="click->education#cancel">Cancel</button>
+        <%= f.submit "Save" %>
+      </div>
+    <% end %>
+  </div>
+</div>

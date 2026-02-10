@@ -21,7 +21,7 @@ class FreelancerProfilesController < ApplicationController
   end
 
 
-  
+
 
   private
 

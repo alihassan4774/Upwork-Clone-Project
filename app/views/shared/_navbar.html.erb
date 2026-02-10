@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-gray-200 px-6 h-16 flex items-center overflow-visible">
+<nav class="bg-white border-b border-gray-200 px-6 h-16 flex items-center overflow-visible" data-action="click->dropdown#close">
   <div class="flex items-center justify-between w-full">
     <!-- Left Side -->
     <div class="flex items-center space-x-8">
@@ -133,31 +133,31 @@
     <div class="flex items-center space-x-4 mr-5">
       <% if user_signed_in? %>
         <!-- Search -->
-          <div class="relative">
+        <div class="relative mr-47">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <input type="text" placeholder="Search" class="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
+          <input type="text" placeholder="Search" class="pl-10 pr-4 py-2 w-94 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
         </div>
 
         <!-- Talent Dropdown -->
        <div class="relative group h-full flex items-center overflow-visible">
-  <button
-    class="flex items-center space-x-1 h-full px-1 font-medium
+        <button
+          class="flex items-center space-x-1 h-full px-1 font-medium
            text-gray-800 hover:text-gray-900 transition-colors">
-    <span>Talent</span>
-    <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+         <span>Talent</span>
+         <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
          fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
+          </svg>
+        </button>
 
-  <!-- Dropdown -->
-  <div
-    class="absolute left-0 top-full mt-2 w-56 bg-white
+        <!-- Dropdown -->
+        <div
+           class="absolute left-0 top-full mt-2 w-56 bg-white
            border border-gray-200 rounded-2xl shadow-xl
            opacity-0 invisible group-hover:opacity-100 group-hover:visible
            transition-all duration-200 ease-out z-50">
@@ -262,12 +262,17 @@
           d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
   </svg>
 <% end %>
+
+
+
         <!-- Avatar -->
-<div class="relative">
-  <button
-    id="dropdown-button"
+<div class="relative" data-controller="dropdown" data-action="click->dropdown#close">
+ <button
+    data-dropdown-target="button"
+    data-action="click->dropdown#toggle"
     class="h-9 w-9 rounded-full bg-teal-500 text-white
-           flex items-center justify-center font-semibold hover:ring-2 hover:ring-teal-300 transition">
+           flex items-center justify-center font-semibold
+           hover:ring-2 hover:ring-teal-300 transition">
 
     <% if current_user.profile&.image.present? %>
       <%= image_tag current_user.profile.image.url,
@@ -277,111 +282,62 @@
     <% end %>
   </button>
 
+
   <!-- Dropdown Menu -->
   <div
-    id="dropdown-menu"
+    data-dropdown-target="menu"
+    data-action="click->dropdown#preventClose"
     class="hidden absolute right-0 mt-3 w-80 bg-white
-           rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50">
+           rounded-2xl shadow-2xl border border-gray-100 z-50">
 
-    <!-- Profile Section -->
-    <div class="p-5 border-b border-gray-100">
-      <div class="flex items-center gap-3">
-        <div class="h-14 w-14 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-xl">
-          <% if current_user.profile&.image.present? %>
-            <%= image_tag current_user.profile.image.url,
-                class: "w-full h-full object-cover rounded-full" %>
-          <% else %>
-            <%= current_user.email[0].upcase %>
-          <% end %>
-        </div>
-        <div>
-          <h3 class="font-semibold text-gray-900 text-base">
-            <%= "#{current_user.profile&.first_name} #{current_user.profile&.last_name}".strip.presence || current_user.email.split('@').first.titleize %>
-          </h3>
-          <p class="text-sm text-gray-600">Basic</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Online Toggle -->
-    <div class="px-5 py-3 border-b border-gray-100">
-      <div class="flex items-center justify-between">
-        <span class="text-sm font-medium text-gray-900">Online for messages</span>
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" class="sr-only peer" checked>
-          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
-        </label>
-      </div>
-    </div>
-
-    <!-- Try Business Plus -->
-    <div class="mx-5 my-3 p-4 bg-gradient-to-br from-green-50 to-yellow-50 border-2 border-green-200 rounded-xl">
-      <h4 class="font-semibold text-gray-900 text-sm mb-1 flex items-center gap-1">
-        Try Business Plus 
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </h4>
-      <p class="text-xs text-gray-600 leading-relaxed">
-        Upgrade for quicker access to the top 1% of freelancers. No upfront costs.
-      </p>
-    </div>
-
-    <!-- Menu Items -->
-    <div class="py-2">
-      <%= link_to profile_path, class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
-        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span class="text-sm font-medium text-gray-900">Account health</span>
-      <% end %>
-
-      <%= link_to "#", class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
-        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-        </svg>
-        <span class="text-sm font-medium text-gray-900">Membership plan</span>
-      <% end %>
-
-      <%= link_to "#", class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
-        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-        </svg>
-        <span class="text-sm font-medium text-gray-900">Invite a coworker</span>
-      <% end %>
-
-      <%= link_to "#", class: "flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition" do %>
+    <!-- Profile -->
+    <%= link_to profile_path, class: "block" do %>
+      <div class="p-5 border-b border-gray-100 hover:bg-gray-200">
         <div class="flex items-center gap-3">
-          <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-          </svg>
-          <span class="text-sm font-medium text-gray-900">Theme: Light</span>
-        </div>
-        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-        </svg>
-      <% end %>
+          <div class="h-14 w-14 rounded-full bg-teal-500 text-white
+                      flex items-center justify-center font-bold text-xl">
+            <% if current_user.profile&.image.present? %>
+              <%= image_tag current_user.profile.image.url,
+                  class: "w-full h-full object-cover rounded-full" %>
+            <% else %>
+              <%= current_user.email[0].upcase %>
+            <% end %>
+          </div>
 
-      <%= link_to profile_path, class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition" do %>
-        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
-        <span class="text-sm font-medium text-gray-900">Account settings</span>
+          <div>
+            <h3 class="font-semibold text-gray-900 text-base">
+              <%= "#{current_user.profile&.first_name} #{current_user.profile&.last_name}".strip.presence ||
+                  current_user.email.split('@').first.titleize %>
+            </h3>
+            <p class="text-sm text-gray-600">Basic</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+   
+
+   
+   <!-- Menu Items -->
+    <div class="py-2">
+      <%= link_to profile_path,
+        class: "flex items-center gap-3 px-5 py-3 hover:bg-gray-200" do %>
+        <span class="text-sm font-medium text-gray-900">
+          Account settings
+        </span>
       <% end %>
     </div>
 
+  
     <!-- Logout -->
     <div class="border-t border-gray-100 py-2">
       <%= button_to destroy_user_session_path, method: :delete,
-          class: "flex items-center gap-3 px-5 py-3 w-full text-left hover:bg-gray-50 transition" do %>
-        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-        </svg>
-        <span class="text-sm font-medium text-gray-900">Log out</span>
+        class: "flex items-center gap-3 px-5 py-3 w-full hover:bg-gray-200" do %>
+        <span class="text-sm font-medium text-gray-900">
+          Log out
+        </span>
       <% end %>
     </div>
-
   </div>
 </div>
 
@@ -399,16 +355,21 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("dropdown-button");
-    const menu = document.getElementById("dropdown-menu");
+  const button = document.getElementById("dropdown-button");
+  const menu = document.getElementById("dropdown-menu");
 
-    button.addEventListener("click", (e) => {
-      e.stopPropagation();
-      menu.classList.toggle("hidden");
-    });
-
-    document.addEventListener("click", () => {
-      menu.classList.add("hidden");
-    });
+  button.addEventListener("click", (e) => {
+    e.stopPropagation();
+    menu.classList.toggle("hidden");
   });
+
+  menu.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  document.addEventListener("click", () => {
+    menu.classList.add("hidden");
+  });
+});
+
 </script>

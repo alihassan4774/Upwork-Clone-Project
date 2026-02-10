@@ -9,13 +9,10 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    # Agar profile nahi hai to pehle create karo
-    @profile ||= current_user.build_profile
-
     if @profile.update(profile_params)
       redirect_to profile_path, notice: "Profile updated successfully!"
     else
-      render :show, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity  # :show ki jagah :edit render karo
     end
   end
 
@@ -27,17 +24,14 @@ class ProfilesController < ApplicationController
 
   def profile_params
     params.require(:profile).permit(
-      :image,
-      :first_name,
-      :last_name,
-      :email,
-      :company_name,
-      :size,
-      :phone,
-      :vat_id,
-      :timezone,
-      :address,
-      :bio
+      :image, :first_name, :last_name, :email, :company_name,
+      :size, :phone, :vat_id, :timezone, :address, :bio,
+      :skills, :fixed_price, :portfolio_url, :education, :experience,
+      :education,
+      :experience_title,
+      :experience_company,
+      :experience_duration,
+      :experience_description,
     )
   end
 end

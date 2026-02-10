@@ -1,5 +1,6 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  get "users/destroy_account"
   get "notifications/index"
   get "freelancer_profiles/new"
   get "freelancer_profiles/create"
@@ -37,6 +38,12 @@ Rails.application.routes.draw do
   resources :client_profiles, only: [ :new, :create, :show, :edit, :update ]
   resources :freelancer_profiles, only: [ :new, :create, :show, :edit, :update ]
   resource :profile, controller: "client_profiles", only: [ :new, :create, :show, :edit, :update ]
+
+  # Custom route to delete user account
+  resource :users, only: [] do
+    delete "destroy_account", to: "users#destroy_account"
+  end
+
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check

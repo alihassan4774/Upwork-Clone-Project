@@ -5,14 +5,10 @@
   </p>
 
   <div class="flex items-center gap-6">
+  
 
-    <button class="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-green-700 transition">
-      Create New Account
-    </button>
-
-    <a href="#" class="text-green-600 text-sm font-medium hover:underline">
-      Close account
-    </a>
+  <%= button_to "Close Account", destroy_account_users_path, method: :delete, class: "text-green-600 text-sm font-medium hover:underline border-0 bg-transparent cursor-pointer p-0",
+    data: { confirm: "Are you sure?" } %>
 
   </div>
 </div>
