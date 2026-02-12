@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   enum :role, { client: 0, freelancer: 1 }
 
   # User create hone par profile bhi automatically create ho

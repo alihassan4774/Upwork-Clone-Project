@@ -1,0 +1,77 @@
+ <div data-controller="contacts" class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+        <button
+          data-action="click->contacts#edit"
+          class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+          ✎
+        </button>
+
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Company contacts</h2>
+
+        <div data-contacts-target="view" class="space-y-4 text-sm">
+          <div>
+            <p class="text-gray-500">Owner</p>
+            <p class="text-gray-900 font-medium"><%= current_user.name || "Not set" %></p>
+          </div>
+
+          <div>
+            <p class="text-gray-500">Phone</p>
+            <p class="text-gray-900"><%= @profile.phone.presence || "—" %></p>
+          </div>
+
+          <div>
+            <p class="text-gray-500">VAT ID</p>
+            <p class="text-gray-900"><%= @profile.vat_id.presence || "—" %></p>
+          </div>
+
+          <div>
+            <p class="text-gray-500">Time Zone</p>
+            <p class="text-gray-900"><%= @profile.timezone.presence || "—" %></p>
+          </div>
+
+          <div>
+            <p class="text-gray-500">Address</p>
+            <p class="text-gray-900"><%= @profile.address.presence || "—" %></p>
+          </div>
+        </div>
+
+        <div data-contacts-target="edit" class="hidden">
+          <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+            <div class="space-y-4">
+              <div>
+                <%= f.label :phone, "Phone", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.text_field :phone, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div>
+                <%= f.label :vat_id, "VAT ID", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.text_field :vat_id, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div>
+                <%= f.label :timezone, "Time Zone", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.select :timezone,
+                      time_zone_options_for_select(@profile.timezone, nil, ActiveSupport::TimeZone),
+                      { include_blank: "Select timezone" },
+                      class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div>
+                <%= f.label :address, "Address", class: "text-sm text-gray-500 block mb-1" %>
+                <%= f.text_area :address, rows: 3, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+              <button
+                type="button"
+                data-action="click->contacts#cancel"
+                class="px-4 py-2 border rounded-lg">
+                Cancel
+              </button>
+
+              <%= f.submit "Save",
+                    class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+            </div>
+          <% end %>
+        </div>
+      </div>

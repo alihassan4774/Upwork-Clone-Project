@@ -1,0 +1,89 @@
+<div
+  data-controller="experience"
+  class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+
+  <!-- Edit Button -->
+  <button
+    data-action="click->experience#edit"
+    class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600
+           flex items-center justify-center hover:bg-green-50">
+    ✎
+  </button>
+
+  <h2 class="text-lg font-semibold text-gray-900 mb-4">Experience</h2>
+
+  <div class="flex items-start gap-6">
+
+    <!-- View Mode -->
+    <div data-experience-target="view">
+      <div class="space-y-1">
+        <p class="font-semibold text-gray-900">
+          <%= @profile.experience_title.presence || "Not set" %>
+        </p>
+
+        <p class="text-sm text-gray-600">
+          <%= @profile.experience_company.presence %>
+        </p>
+
+        <div class="flex gap-3 mt-3">
+          <p class="text-sm text-gray-500">Duration:</p>
+          <p class="text-sm text-gray-900">
+            <%= @profile.experience_duration.presence || "Not set" %>
+          </p>
+        </div>
+
+        <div class="flex gap-3 mt-3">
+          <p class="text-sm text-gray-500">Description:</p>
+          <p class="text-sm text-gray-900">
+            <%= @profile.experience_description.presence || "Not set" %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Mode -->
+    <div data-experience-target="edit" class="hidden flex-1">
+      <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+
+        <div class="mb-3">
+          <%= f.label :experience_title, "Job Title", class: "text-sm text-gray-500" %>
+          <%= f.text_field :experience_title,
+                class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :experience_company, "Company", class: "text-sm text-gray-500" %>
+          <%= f.text_field :experience_company,
+                class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :experience_duration, "Duration", class: "text-sm text-gray-500" %>
+          <%= f.text_field :experience_duration,
+                placeholder: "e.g. Jan 2023 – Dec 2024",
+                class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :experience_description, "Description", class: "text-sm text-gray-500" %>
+          <%= f.text_area :experience_description,
+                rows: 3,
+                class: "w-full border rounded-lg px-3 py-2" %>
+        </div>
+
+        <div class="flex gap-3">
+          <button
+            type="button"
+            data-action="click->experience#cancel"
+            class="px-4 py-2 border rounded-lg">
+            Cancel
+          </button>
+
+          <%= f.submit "Save",
+                class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

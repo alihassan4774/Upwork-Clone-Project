@@ -3,21 +3,33 @@ class FreelancerProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @freelancer_profile = current_user.build_freelancer_profile
+    @profile = current_user.build_profile || Profile.new
   end
 
   def create
-    @freelancer_profile = current_user.build_freelancer_profile(freelancer_profile_params)
+    @profile = current_user.build_profile(profile_params)
 
-    if @freelancer_profile.save
-      redirect_to user_freelancer_path(@freelancer_profile), notice: "Profile created successfully!"
+    if @profile.save
+      redirect_to user_client_path, notice: "Profile created successfully!"
     else
       render :new
     end
   end
 
+
+
   def show
-    @freelancer_profile = FreelancerProfile.find(params[:id])
+    @profile = Profile.find(params[:id])
+  end
+
+   def update
+    @profile = current_user.profile
+
+    if @profile.update(profile_params)
+      redirect_to request.referrer || profile_path, notice: "Profile updated successfully!"
+    else
+      render :edit
+    end
   end
 
 
@@ -26,6 +38,11 @@ class FreelancerProfilesController < ApplicationController
   private
 
   def freelancer_profile_params
-    params.require(:freelancer_profile).permit(:skills, :fixed_price, :portfolio_url)
+    params.require(:freelancer_profile).permit(:skills, :fixed_price, :portfolio_url, :education, :experience,
+      :education,
+      :experience_title,
+      :experience_company,
+      :experience_duration,
+      :experience_description,)
   end
 end

@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-white flex flex-col items-center">
+<div class="min-h-screen bg-white flex flex-col items-center"  data-controller="role-selector">
 
 
 
@@ -14,13 +14,13 @@
 
         <!-- CLIENT -->
         <label class="cursor-pointer">
-          <input
-            type="radio"
-            name="user[role]"
-            value="client"
-            class="peer hidden role-radio"
-          />
-
+        <input
+          type="radio"
+          name="user[role]"
+          value="client"
+          class="peer hidden role-radio"
+          data-role-selector-target="radio"
+/>
           <div
             class="w-72 p-6 border-2 border-gray-300 rounded-lg flex justify-between items-start
                    hover:border-gray-400
@@ -44,7 +44,8 @@
             name="user[role]"
             value="freelancer"
             class="peer hidden role-radio"
-          />
+            data-role-selector-target="radio"
+          />          
 
           <div
             class="w-72 p-6 border-2 border-gray-300 rounded-lg flex justify-between items-start
@@ -68,6 +69,7 @@
       <button
         id="createAccountBtn"
         disabled
+        data-role-selector-target="button"
         class="mt-10 px-10 py-3 bg-gray-200 text-gray-400 rounded-full cursor-not-allowed transition">
         Create Account
       </button>

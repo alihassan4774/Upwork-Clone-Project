@@ -12,45 +12,134 @@
     </div>
 
     <!-- Form -->
-    <%= form_with model: @freelancer_profile,
-                  url: freelancer_profiles_path,
+    <%= form_with model: @profile, 
+                  url: profile_path,
+                   html: { multipart: true },
                   class: "space-y-6" do |f| %>
 
+
+                   <div class="mb-4">
+            <%= f.file_field :image,
+              class: "block w-full text-sm text-gray-800
+                border border-gray-300 rounded-md
+                bg-white
+                focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+                file:mr-3 file:py-2 file:px-4
+                file:rounded-md
+                file:border-0
+                file:text-sm file:font-medium
+                file:bg-green-50 file:text-green-700
+                hover:file:bg-green-100
+                transition" %>
+        </div>
+
       <!-- Skills -->
-      <div>
-        <%= f.label :skills, class: "block text-sm font-semibold text-gray-700 mb-1" %>
-        <%= f.text_area :skills,
-              rows: 4,
-              placeholder: "e.g. Ruby on Rails, Tailwind CSS, PostgreSQL",
-              class: "w-full rounded-lg border border-gray-300 px-4 py-2
-                      focus:border-green-500 focus:ring-2 focus:ring-green-200
-                      outline-none transition" %>
-      </div>
+
+
+<div class="mb-4">
+  <%= f.label :skills, "Skills", class: "block text-sm font-semibold text-gray-700 mb-1" %>
+  <%= f.text_area :skills,
+        value: @profile.skills&.join(', '),
+        rows: 3,
+        placeholder: "e.g. Ruby on Rails, JavaScript, PostgreSQL, Tailwind CSS",
+        class: "w-full rounded-lg border border-gray-300 px-4 py-2
+                focus:border-green-500 focus:ring-2 focus:ring-green-200
+                outline-none transition" %>
+  <p class="text-xs text-gray-500 mt-1">Separate skills with commas</p>
+</div>
 
      
 
       <!-- Education -->
-<div>
-  <%= f.label :education, class: "block text-sm font-semibold text-gray-700 mb-1" %>
-  <%= f.text_area :education,
-        rows: 3,
-        placeholder: "e.g. BS Information Technology – University of Lahore",
-        class: "w-full rounded-lg border border-gray-300 px-4 py-2
-                focus:border-green-500 focus:ring-2 focus:ring-green-200
-                outline-none transition" %>
+<div class="space-y-4">
+
+  <!-- Degree -->
+  <h1 class="font-semibold" >Education</h1>
+  <div>
+    <%= f.label :degree,
+          class: "block text-sm font-semibold text-gray-700 mb-1" %>
+
+    <%= f.text_field :degree,
+          placeholder: "e.g. BS Information Technology",
+          class: "w-full rounded-lg border border-gray-300 px-4 py-2
+                  focus:border-green-500 focus:ring-2 focus:ring-green-200
+                  outline-none transition" %>
+  </div>
+
+  <!-- University -->
+  <div>
+    <%= f.label :university,
+          class: "block text-sm font-semibold text-gray-700 mb-1" %>
+
+    <%= f.text_field :university,
+          placeholder: "e.g. University of Lahore",
+          class: "w-full rounded-lg border border-gray-300 px-4 py-2
+                  focus:border-green-500 focus:ring-2 focus:ring-green-200
+                  outline-none transition" %>
+  </div>
+
+  <!-- Completion Year -->
+  <div>
+    <%= f.label :complete_year, "Completion Year",
+          class: "block text-sm font-semibold text-gray-700 mb-1" %>
+
+    <%= f.text_field :complete_year,
+          placeholder: "e.g. 2026",
+          class: "w-full rounded-lg border border-gray-300 px-4 py-2
+                  focus:border-green-500 focus:ring-2 focus:ring-green-200
+                  outline-none transition" %>
+  </div>
+
 </div>
+
 
 
 <!-- Experience -->
+<!-- Experience Title -->
+<h1 class="font-semibold" >Experience</h1>
 <div>
-  <%= f.label :experience, class: "block text-sm font-semibold text-gray-700 mb-1" %>
-  <%= f.text_area :experience,
-        rows: 4,
-        placeholder: "e.g. 2+ years experience in web development, React & Rails",
+  <%= f.label :experience_title, "Job Title",
+        class: "block text-sm font-semibold text-gray-700 mb-1" %>
+  <%= f.text_field :experience_title,
+        placeholder: "e.g. Frontend Developer",
         class: "w-full rounded-lg border border-gray-300 px-4 py-2
                 focus:border-green-500 focus:ring-2 focus:ring-green-200
                 outline-none transition" %>
 </div>
+
+<!-- Experience Company -->
+<div>
+  <%= f.label :experience_company, "Company",
+        class: "block text-sm font-semibold text-gray-700 mb-1" %>
+  <%= f.text_field :experience_company,
+        placeholder: "e.g. ABC Software House",
+        class: "w-full rounded-lg border border-gray-300 px-4 py-2
+                focus:border-green-500 focus:ring-2 focus:ring-green-200
+                outline-none transition" %>
+</div>
+
+<!-- Experience Duration -->
+<div>
+  <%= f.label :experience_duration, "Duration",
+        class: "block text-sm font-semibold text-gray-700 mb-1" %>
+  <%= f.text_field :experience_duration,
+        placeholder: "e.g. Jan 2023 – Dec 2024",
+        class: "w-full rounded-lg border border-gray-300 px-4 py-2
+                focus:border-green-500 focus:ring-2 focus:ring-green-200
+                outline-none transition" %>
+</div>
+
+<!-- Experience Description -->
+<div>
+  <%= f.label :experience_description, "Description",
+        class: "block text-sm font-semibold text-gray-700 mb-1" %>
+  <%= f.text_area :experience_description,
+        rows: 3,
+        class: "w-full rounded-lg border border-gray-300 px-4 py-2
+                focus:border-green-500 focus:ring-2 focus:ring-green-200
+                outline-none transition" %>
+</div>
+
 
 
  <!-- Fixed Price -->

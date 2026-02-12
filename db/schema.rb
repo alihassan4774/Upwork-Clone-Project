@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_10_195149) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_12_094434) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,7 +48,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_195149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
-    t.text "skills"
     t.integer "fixed_price"
     t.string "portfolio_url"
     t.text "education"
@@ -57,6 +56,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_195149) do
     t.string "experience_company"
     t.string "experience_duration"
     t.text "experience_description"
+    t.string "degree"
+    t.string "complete_year"
+    t.string "university"
+    t.string "skills", default: [], array: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

@@ -1,33 +1,78 @@
+<div data-controller="company" class="bg-white border pb-20 border-gray-200 rounded-xl p-6 relative">
+        <button
+          data-action="click->company#edit"
+          class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
+          ✎
+        </button>
 
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Company details</h2>
 
- <div class="bg-white border pb-20 border-gray-200 rounded-xl p-6 relative">
+        <div class="flex items-start gap-6">
+          <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+            🏢
+          </div>
 
-    <!-- Edit Button -->
-    <button  onclick="openCompanyModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600 flex items-center justify-center hover:bg-green-50">
-      ✎
-    </button>
+          <div data-company-target="view" class="space-y-3">
+            <div>
+              <p class="text-sm text-gray-500">Company name</p>
+              <p class="text-sm text-gray-900"><%= @profile.company_name.presence || "Not set" %></p>
+            </div>
 
-    <h2 class="text-lg font-semibold text-gray-900 mb-4">Company details</h2>
+            <div>
+              <p class="text-sm text-gray-500">Size</p>
+              <p class="text-sm text-gray-900"><%= @profile.size.presence || "Not set" %></p>
+            </div>
 
-    <div class="flex items-start gap-6">
+            <div>
+              <p class="text-sm text-gray-500">bio</p>
+              <p class="text-sm text-gray-900"><%= @profile.bio.presence || "Not set" %></p>
+            </div>
+          </div>
 
-      <!-- Icon -->
-      <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-        🏢
-      </div>
+          <div data-company-target="edit" class="hidden flex-1">
+            <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+              <div class="mb-3">
+                <%= f.label :company_name, "Company Name", class: "text-sm text-gray-500" %>
+                <%= f.text_field :company_name, class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
 
-      <!-- Info -->
-      <div class="space-y-3">
-        <div>
-          <p class="text-sm text-gray-500">Company name</p>
-          <p class="text-sm text-gray-900">Ali H</p>
+              <div class="mb-3">
+                <%= f.label :size, "Company Size", class: "text-sm text-gray-500" %>
+                <%= f.select :size,
+                      options_for_select(
+                        [
+                          ["1-10 employees", "1-10"],
+                          ["11-50 employees", "11-50"],
+                          ["51-200 employees", "51-200"],
+                          ["201-500 employees", "201-500"],
+                          ["500+ employees", "500+"]
+                        ],
+                        @profile.size
+                      ),
+                      { include_blank: "Select size" },
+                      class: "w-full border rounded-lg px-3 py-2" %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :bio, "Bio", class: "text-sm text-gray-500" %>
+                <%= f.text_area :bio,
+                      rows: 5,
+                      placeholder: "Describe your company, goals, and the type of work you need…",
+                      class: "w-full border rounded-lg px-3 py-2 resize-none" %>
+              </div>
+
+              <div class="flex gap-3">
+                <button
+                  type="button"
+                  data-action="click->company#cancel"
+                  class="px-4 py-2 border rounded-lg">
+                  Cancel
+                </button>
+
+                <%= f.submit "Save",
+                      class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer" %>
+              </div>
+            <% end %>
+          </div>
         </div>
-
-        <div>
-          <p class="text-sm text-gray-500">Size</p>
-          <p class="text-sm text-gray-900">It's just me</p>
-        </div>
       </div>
-
-    </div>
-  </div>

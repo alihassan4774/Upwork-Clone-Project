@@ -1,0 +1,82 @@
+<div
+  data-controller="education"
+  class="bg-white border border-gray-200 rounded-xl p-6 mb-6 relative">
+
+  <!-- Edit Button -->
+  <button
+    data-action="click->education#edit"
+    class="absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-green-600
+           flex items-center justify-center hover:bg-green-50 transition">
+    ✎
+  </button>
+
+  <h2 class="text-lg font-semibold text-gray-900 mb-6">Education</h2>
+
+  <div class="flex items-start gap-8">
+
+    <!-- View Mode -->
+    <div data-education-target="view" class="space-y-4">
+
+      <div>
+        <p class="text-sm text-gray-500">Degree</p>
+        <p class="text-base font-medium text-gray-900">
+          <%= @profile.degree.presence || "Not set" %>
+        </p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">University</p>
+        <p class="text-base text-gray-900">
+          <%= @profile.university.presence || "Not set" %>
+        </p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Completion Year</p>
+        <p class="text-base text-gray-900">
+          <%= @profile.complete_year.presence || "Not set" %>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Edit Mode -->
+    <div data-education-target="edit" class="hidden flex-1">
+      <%= form_with model: @profile, url: profile_path, method: :patch, local: true do |f| %>
+
+        <div class="mb-4">
+          <%= f.label :degree, class: "text-sm text-gray-500 block mb-1" %>
+          <%= f.text_field :degree,
+                class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 outline-none transition" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :university, class: "text-sm text-gray-500 block mb-1" %>
+          <%= f.text_field :university,
+                class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 outline-none transition" %>
+        </div>
+
+        <div class="mb-5">
+          <%= f.label :complete_year, "Completion Year",
+                class: "text-sm text-gray-500 block mb-1" %>
+          <%= f.text_field :complete_year,
+                class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 outline-none transition" %>
+        </div>
+
+        <div class="flex gap-3">
+          <button
+            type="button"
+            data-action="click->education#cancel"
+            class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+            Cancel
+          </button>
+
+          <%= f.submit "Save",
+                class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition cursor-pointer" %>
+        </div>
+
+      <% end %>
+    </div>
+
+  </div>
+</div>

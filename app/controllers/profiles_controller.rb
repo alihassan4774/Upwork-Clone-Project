@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
     if @profile.update(profile_params)
       redirect_to profile_path, notice: "Profile updated successfully!"
     else
-      render :edit, status: :unprocessable_entity  # :show ki jagah :edit render karo
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -26,12 +26,13 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(
       :image, :first_name, :last_name, :email, :company_name,
       :size, :phone, :vat_id, :timezone, :address, :bio,
-      :skills, :fixed_price, :portfolio_url, :education, :experience,
+      :skills, :fixed_price, :portfolio_url, :experience,
       :education,
       :experience_title,
       :experience_company,
       :experience_duration,
       :experience_description,
+      
     )
   end
 end
