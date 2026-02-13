@@ -5,9 +5,33 @@
 
 
   <h1 class="text-3xl font-bold text-green-600 mb-6">Showing Job</h1>
+  <h2 class="text-lg font-semibold mt-6">Proposals</h2>
+<% if @proposals.any? %>
+  <% @proposals.each do |proposal| %>
+    <div class="border p-4 rounded-lg my-3">
+      <p><strong>Freelancer:</strong> <%= proposal.freelancer.name %></p>
+      <p><strong>Bid:</strong> $<%= proposal.bid_amount %></p>
+      <p><strong>Time:</strong> <%= proposal.estimated_time %></p>
+      <p><strong>Cover Letter:</strong> <%= proposal.cover_letter %></p>
+      <% if  current_user.client? %>
+      <div class="pt-3">
+        <button class="px-5 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition">
+          Hired
+        </button>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <% if current_user.freelancer? %>
+    <p class="text-gray-500 mt-3">You have not applied to this job yet.</p>
+  <% end %>
+<% end %>
+
 
   <div class="bg-white rounded-xl p-6 mb-6">
     <%= render @job %>
+
   </div>
 
   <div class="flex flex-wrap gap-3">
