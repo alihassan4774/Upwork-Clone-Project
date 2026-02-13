@@ -38,7 +38,9 @@ Rails.application.routes.draw do
   resources :client_profiles, only: [ :new, :create, :show, :edit, :update ]
   resources :freelancer_profiles, only: [ :new, :create, :show, :edit, :update ]
   resource :profile, controller: "client_profiles", only: [ :new, :create, :show, :edit, :update ]
-  resources :jobs
+  resources :jobs do
+    resources :proposals, only: [ :new, :create ]   # nested proposals
+  end
 
   # Custom route to delete user account
   resource :users, only: [] do
