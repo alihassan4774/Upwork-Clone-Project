@@ -1,0 +1,13 @@
+<% content_for :title, "New job" %>
+
+<div class="max-w-3xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-green-600 mb-6">New Job</h1>
+
+  <%= render "form", job: @job %>
+
+  <div class="mt-6">
+    <%= link_to "Back to jobs",
+        jobs_path,
+        class: "inline-block rounded-lg px-4 py-2 bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition" %>
+  </div>
+</div>

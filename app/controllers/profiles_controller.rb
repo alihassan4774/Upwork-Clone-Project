@@ -32,7 +32,7 @@ class ProfilesController < ApplicationController
       :experience_company,
       :experience_duration,
       :experience_description,
-      
+
     )
   end
 end

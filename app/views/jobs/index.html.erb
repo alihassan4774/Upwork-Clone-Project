@@ -1,0 +1,54 @@
+<% content_for :title, "Jobs" %>
+
+<div class="max-w-5xl mx-auto px-4 py-8">
+
+ 
+
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">Jobs</h1>
+
+    <%= link_to "New job",
+        new_job_path,
+        class: "px-5 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition" %>
+  </div>
+
+  <!-- Jobs List -->
+  <div id="jobs" class="space-y-6">
+    <% if @jobs.any? %>
+      <% @jobs.each do |job| %>
+
+        <!-- Card -->
+        <div class="bg-white   rounded-xl  p-6 flex flex-col min-h-[220px]">
+
+          <!-- Job Info -->
+          <div>
+            <%= render job %>
+          </div>
+
+          <!-- Actions (Bottom Left) -->
+          <div class="mt-auto flex gap-3 pt-4">
+            <%= link_to "Show",
+                job,
+                class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" %>
+
+            <%= link_to "Edit",
+                edit_job_path(job),
+                class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" %>
+
+            <%= button_to "Destroy",
+                job,
+                method: :delete,
+                class: "px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-500 transition",
+                data: { turbo_confirm: "Are you sure?" } %>
+          </div>
+
+        </div>
+
+      <% end %>
+    <% else %>
+      <p class="text-center text-gray-500 my-12">No jobs found.</p>
+    <% end %>
+  </div>
+
+</div>

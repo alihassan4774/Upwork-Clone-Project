@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_12_094434) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_12_133807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,6 +31,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_12_094434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_freelancer_profiles_on_user_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "budget"
+    t.string "project_type"
+    t.string "experience_level"
+    t.date "deadline"
+    t.bigint "user_id", null: false
+    t.string "skills", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -79,5 +93,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_12_094434) do
 
   add_foreign_key "client_profiles", "users"
   add_foreign_key "freelancer_profiles", "users"
+  add_foreign_key "jobs", "users"
   add_foreign_key "profiles", "users"
 end

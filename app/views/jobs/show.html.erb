@@ -1,0 +1,29 @@
+<%# <% content_for :title, "Showing job" %>
+
+<div class="max-w-3xl mx-auto px-4 py-8">
+
+
+
+  <h1 class="text-3xl font-bold text-green-600 mb-6">Showing Job</h1>
+
+  <div class="bg-white rounded-xl p-6 mb-6">
+    <%= render @job %>
+  </div>
+
+  <div class="flex flex-wrap gap-3">
+    <%= link_to "Edit this job",
+        edit_job_path(@job),
+        class: "px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-green-200 transition" %>
+
+    <%= link_to "Back to jobs",
+        jobs_path,
+        class: "px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-green-200 transition" %>
+
+    <%= button_to "Destroy this job",
+        @job,
+        method: :delete,
+        class: "px-4 py-2 rounded-lg text-white bg-green-600 hover:bg-green-500 font-medium",
+        data: { turbo_confirm: "Are you sure?" } %>
+  </div>
+
+</div>

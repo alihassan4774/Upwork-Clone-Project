@@ -1,0 +1,56 @@
+<div id="<%= dom_id job %>" class="bg-white rounded-2xl  border border-gray-200 p-6 space-y-6">
+
+  <!-- Title -->
+  <div>
+    <p class="text-sm text-gray-500 mb-1">Title</p>
+    <p class="text-xl font-semibold text-gray-800"><%= job.title %></p>
+  </div>
+
+  <!-- Description -->
+  <div>
+    <p class="text-sm text-gray-500 mb-1">Description</p>
+    <p class="text-gray-700 leading-relaxed"><%= job.description %></p>
+  </div>
+
+  <!-- Info Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+    <div>
+      <p class="text-sm text-gray-500 mb-1">Budget</p>
+      <p class="font-medium text-gray-800">$<%= job.budget %></p>
+    </div>
+
+    <div>
+      <p class="text-sm text-gray-500 mb-1">Project Type</p>
+      <p class="font-medium text-gray-800 capitalize"><%= job.project_type %></p>
+    </div>
+
+    <div>
+      <p class="text-sm text-gray-500 mb-1">Experience Level</p>
+      <p class="font-medium text-gray-800 capitalize"><%= job.experience_level %></p>
+    </div>
+
+    <div>
+      <p class="text-sm text-gray-500 mb-1">Deadline</p>
+      <p class="font-medium text-gray-800"><%= job.deadline %></p>
+    </div>
+
+  </div>
+
+  <!-- Skills -->
+  <div>
+    <p class="text-sm text-gray-500 mb-2">Skills Required:</p>
+    <div class="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-gray-700">
+      <% if job.skills.present? && job.skills.any? %>
+          <% job.skills.each do |skill| %>
+            <span class="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full">
+              <%= skill %>
+            </span>
+          <% end %>
+        <% else %>
+          <p class="text-sm text-gray-500">No skills added yet</p>
+        <% end %>
+    </div>
+  </div>
+
+</div>
