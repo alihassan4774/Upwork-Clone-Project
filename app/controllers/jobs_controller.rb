@@ -8,7 +8,16 @@ class JobsController < ApplicationController
 
   # GET /jobs/1 or /jobs/1.json
   def show
+  @job = Job.find(params[:id])
+
+  if current_user.client?
+    # Client → sab proposals dekhe
+    @proposals = @job.proposals.includes(:freelancer)
+  else
+    # Freelancer → sirf apna proposal dekhe
+    @proposals = @job.proposals.where(freelancer_id: current_user.id)
   end
+end
 
   # GET /jobs/new
   def new

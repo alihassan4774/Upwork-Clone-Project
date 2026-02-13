@@ -2,15 +2,15 @@
 
 <div class="max-w-5xl mx-auto px-4 py-8">
 
- 
-
   <!-- Header -->
   <div class="flex justify-between items-center mb-8">
     <h1 class="text-3xl font-bold text-gray-800">Jobs</h1>
 
-    <%= link_to "New job",
-        new_job_path,
-        class: "px-5 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition" %>
+    <% if current_user.client? %>
+      <%= link_to "New job",
+          new_job_path,
+          class: "px-5 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition" %>
+    <% end %>
   </div>
 
   <!-- Jobs List -->
@@ -19,29 +19,53 @@
       <% @jobs.each do |job| %>
 
         <!-- Card -->
-        <div class="bg-white   rounded-xl  p-6 flex flex-col min-h-[220px]">
+        <div class="bg-white rounded-xl p-6 flex flex-col min-h-[220px]">
 
           <!-- Job Info -->
           <div>
             <%= render job %>
           </div>
+<% if current_user.client? %>
+  <!-- Client Actions -->
+  <div class="mt-auto flex gap-3 pt-4">
+    
+    <%= link_to "Show",
+          job,
+          class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" %>
 
-          <!-- Actions (Bottom Left) -->
-          <div class="mt-auto flex gap-3 pt-4">
-            <%= link_to "Show",
-                job,
-                class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" %>
+    <%= link_to "Edit",
+        edit_job_path(job),
+        class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" %>
 
-            <%= link_to "Edit",
-                edit_job_path(job),
-                class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" %>
+    <%= button_to "Destroy",
+        job,
+        method: :delete,
+        class: "px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-500 transition",
+        data: { turbo_confirm: "Are you sure?" } %>
+  </div>
 
-            <%= button_to "Destroy",
-                job,
-                method: :delete,
-                class: "px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-500 transition",
-                data: { turbo_confirm: "Are you sure?" } %>
-          </div>
+<% elsif current_user.freelancer? %>
+
+  <% applied = job.proposals.exists?(freelancer_id: current_user.id) %>
+
+  <div class="flex justify-end pt-4 gap-4">
+
+    <% if applied %>
+      <!-- Already Applied → Show Button -->
+      <%= link_to "Show",
+          job,
+          class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" %>
+    <% else %>
+      <!-- Not Applied → Apply Button -->
+      <%= link_to "Apply Now",
+          new_job_proposal_path(job),
+          class: "px-4 py-2 text-white bg-green-600 rounded-lg font-medium hover:bg-green-500 transition" %>
+    <% end %>
+
+  </div>
+
+<% end %>
+
 
         </div>
 

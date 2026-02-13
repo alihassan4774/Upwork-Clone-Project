@@ -29,5 +29,6 @@ class User < ApplicationRecord
   has_one :freelancer_profile, dependent: :destroy
   has_one :profile, dependent: :destroy
   has_many :jobs, dependent: :destroy
+  has_many :proposals, foreign_key: :freelancer_id
 
 end

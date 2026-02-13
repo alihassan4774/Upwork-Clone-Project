@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_12_133807) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_13_094047) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,6 +77,19 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_12_133807) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "proposals", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "freelancer_id", null: false
+    t.text "cover_letter"
+    t.integer "bid_amount"
+    t.string "estimated_time"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["freelancer_id"], name: "index_proposals_on_freelancer_id"
+    t.index ["job_id"], name: "index_proposals_on_job_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -95,4 +108,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_12_133807) do
   add_foreign_key "freelancer_profiles", "users"
   add_foreign_key "jobs", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "proposals", "jobs"
+  add_foreign_key "proposals", "users", column: "freelancer_id"
 end
