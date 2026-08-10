@@ -61,7 +61,7 @@ end
 
  gem "carrierwave-aws", "~> 1.6", ">= 1.6.1"
 
- gem "mini_magick", "~> 5.3", ">= 5.3.1"
+ gem "mini_magick", "~> 5.3"
 
 
 
